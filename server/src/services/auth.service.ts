@@ -1,6 +1,8 @@
 import prisma from "../config/prisma.js";
 import { comparePassword, hashPassword } from "../utils/hash.js";
 import { generateToken } from "../utils/token.js";
+import { createDefaultCategoriesForUser } from "./category.service.js";
+
 interface RegisterData {
   fullName: string;
   email: string;
@@ -39,6 +41,8 @@ export async function registerUser(data: RegisterData) {
       updatedAt: true,
     },
   });
+
+  await createDefaultCategoriesForUser(user.id);
 
   return user;
 }

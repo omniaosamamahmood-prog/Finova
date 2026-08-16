@@ -1,9 +1,99 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import "tailwindcss";
+
+:root {
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* Surfaces */
+  --app-bg: #0f172a;
+  --app-bg-elevated: #111827;
+  --app-surface: #1e293b;
+  --app-surface-hover: #243247;
+
+  /* Borders & rings */
+  --app-border: #334155;
+  --app-border-subtle: #1e293b;
+
+  /* Brand & status */
+  --app-primary: #2563eb;
+  --app-primary-hover: #1d4ed8;
+  --app-primary-muted: rgb(37 99 235 / 0.15);
+  --app-success: #22c55e;
+  --app-danger: #ef4444;
+  --app-danger-hover: #dc2626;
+  --app-danger-muted: rgb(239 68 68 / 0.12);
+  --app-warning: #f59e0b;
+
+  /* Text */
+  --app-fg: #f8fafc;
+  --app-fg-muted: #cbd5e1;
+  --app-fg-subtle: #94a3b8;
+
+  /* Effects */
+  --app-shadow-card: 0 1px 2px rgb(0 0 0 / 0.24);
+  --app-ring-focus: 0 0 0 3px rgb(37 99 235 / 0.35);
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+
+  --color-bg: var(--app-bg);
+  --color-bg-elevated: var(--app-bg-elevated);
+  --color-surface: var(--app-surface);
+  --color-surface-hover: var(--app-surface-hover);
+
+  --color-border: var(--app-border);
+  --color-border-subtle: var(--app-border-subtle);
+
+  --color-primary: var(--app-primary);
+  --color-primary-hover: var(--app-primary-hover);
+  --color-primary-muted: var(--app-primary-muted);
+
+  --color-success: var(--app-success);
+  --color-danger: var(--app-danger);
+  --color-danger-hover: var(--app-danger-hover);
+  --color-danger-muted: var(--app-danger-muted);
+  --color-warning: var(--app-warning);
+
+  --color-fg: var(--app-fg);
+  --color-fg-muted: var(--app-fg-muted);
+  --color-fg-subtle: var(--app-fg-subtle);
+
+  --shadow-card: var(--app-shadow-card);
 }
 
 body {
-  font-family: sans-serif;
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--app-bg);
+  color: var(--app-fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes welcome-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-fade {
+  animation: welcome-fade-in 420ms ease-out both;
+}
+
+.welcome-fade-delay {
+  animation: welcome-fade-in 520ms ease-out 80ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-fade,
+  .welcome-fade-delay {
+    animation: none;
+  }
 }

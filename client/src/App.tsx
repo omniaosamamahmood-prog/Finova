@@ -1,7 +1,7 @@
+import AppRouter from "./routes/AppRouter";
+
 function App() {
-  return (
-    <h1>Welcome to Finova </h1>
-  );
+  return <AppRouter />;
 }
 
 export default App;

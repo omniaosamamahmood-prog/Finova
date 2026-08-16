@@ -1,0 +1,152 @@
+{
+  "common": {
+    "appName": "Finova",
+    "tagline": "Smart Personal Finance",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "close": "Close",
+    "retry": "Retry",
+    "loading": "Loading..."
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Login to continue managing your finances.",
+      "emailPlaceholder": "Email Address",
+      "passwordPlaceholder": "Password",
+      "forgot": "Forgot Password?",
+      "loginBtn": "Login",
+      "noAccount": "Don't have an account?",
+      "register": "Register"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Start tracking your finances today.",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "terms": "I agree to the Terms & Conditions",
+      "createBtn": "Create Account",
+      "haveAccount": "Already have an account?",
+      "login": "Login"
+    },
+    "server": {
+      "registrationFailed": "Registration failed",
+      "somethingWrong": "Something went wrong"
+    }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "accounts": "Accounts",
+    "budgets": "Budgets",
+    "goals": "Goals",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}.",
+    "greeting": "Welcome back",
+    "summarySection": "Account summary",
+    "totalBalance": "Total Balance",
+    "income": "Income",
+    "expenses": "Expenses",
+    "transactions": "Transactions"
+  },
+  "transactions": {
+    "subtitle": "Track and manage your income and expenses.",
+    "add": "Add Transaction",
+    "addTitle": "Add Transaction",
+    "editTitle": "Edit Transaction",
+    "searchPlaceholder": "Search by title or category...",
+    "filters": {
+      "all": "All",
+      "income": "Income",
+      "expense": "Expense"
+    },
+    "types": {
+      "INCOME": "Income",
+      "EXPENSE": "Expense"
+    },
+    "uncategorized": "Uncategorized",
+    "emptyTitle": "No transactions yet",
+    "emptyDescription": "Create your first transaction to start tracking your money.",
+    "deleteTitle": "Delete transaction?",
+    "deleteMessage": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "e.g. Grocery shopping",
+      "amount": "Amount",
+      "amountPlaceholder": "0.00",
+      "type": "Transaction Type",
+      "category": "Category",
+      "categoryPlaceholder": "Select a category",
+      "noCategories": "No categories for this type. Create a category first.",
+      "date": "Date",
+      "create": "Create Transaction",
+      "save": "Save Changes"
+    },
+    "validation": {
+      "title": "Title must be at least 2 characters",
+      "amount": "Enter a valid amount greater than zero",
+      "type": "Select a transaction type",
+      "category": "Select a category",
+      "date": "Select a date"
+    },
+    "toasts": {
+      "created": "Transaction created successfully",
+      "updated": "Transaction updated successfully",
+      "deleted": "Transaction deleted successfully"
+    }
+  },
+  "errors": {
+    "network": "Network error. Please check your connection.",
+    "unauthorized": "Your session has expired. Please log in again.",
+    "validation": "Please check your input and try again.",
+    "server": "Something went wrong on the server. Please try again.",
+    "somethingWrong": "Something went wrong"
+  },
+  "categories": {
+    "Salary": "Salary",
+    "Freelance": "Freelance",
+    "Bonus": "Bonus",
+    "Investment": "Investment",
+    "Gift": "Gift",
+    "Food": "Food",
+    "Transport": "Transport",
+    "Shopping": "Shopping",
+    "Bills": "Bills",
+    "Rent": "Rent",
+    "Health": "Health",
+    "Entertainment": "Entertainment",
+    "Education": "Education",
+    "Travel": "Travel",
+    "Other": "Other"
+  },
+  "validation": {
+    "fullName": {
+      "min": "Full name must be at least 3 characters"
+    },
+    "email": {
+      "invalid": "Invalid email"
+    },
+    "password": {
+      "min": "Password must be at least 6 characters"
+    }
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "welcome": {
+    "eyebrow": "Welcome",
+    "title": "Finova",
+    "subtitle": "Smart Personal Finance",
+    "description": "Track your income, expenses, budgets and savings in one place.",
+    "continueEn": "Continue in English",
+    "continueAr": "المتابعة بالعربية",
+    "continue": "Continue",
+    "chooseLanguage": "Choose your language",
+    "selected": "Selected"
+  }
+}

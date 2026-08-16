@@ -1,0 +1,152 @@
+{
+  "common": {
+    "appName": "فينوفا",
+    "tagline": "التمويل الشخصي الذكي",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "retry": "إعادة المحاولة",
+    "loading": "جارٍ التحميل..."
+  },
+  "auth": {
+    "login": {
+      "title": "مرحبًا مجددًا",
+      "subtitle": "سجِّل الدخول للمتابعة في إدارة أموالك.",
+      "emailPlaceholder": "البريد الإلكتروني",
+      "passwordPlaceholder": "كلمة المرور",
+      "forgot": "نسيت كلمة المرور؟",
+      "loginBtn": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "register": "إنشاء حساب"
+    },
+    "register": {
+      "title": "إنشاء حساب",
+      "subtitle": "ابدأ بتتبع أمورك المالية اليوم.",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "terms": "أوافق على الشروط والأحكام",
+      "createBtn": "إنشاء حساب",
+      "haveAccount": "هل لديك حساب؟",
+      "login": "تسجيل الدخول"
+    },
+    "server": {
+      "registrationFailed": "فشل التسجيل",
+      "somethingWrong": "حدث خطأ ما"
+    }
+  },
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "transactions": "المعاملات",
+    "accounts": "الحسابات",
+    "budgets": "الميزانيات",
+    "goals": "الأهداف",
+    "logout": "تسجيل الخروج"
+  },
+  "dashboard": {
+    "welcome": "مرحبًا بك مجددًا، {{name}}.",
+    "greeting": "مرحبًا بك مجددًا",
+    "summarySection": "ملخص الحساب",
+    "totalBalance": "إجمالي الرصيد",
+    "income": "الدخل",
+    "expenses": "المصروفات",
+    "transactions": "المعاملات"
+  },
+  "transactions": {
+    "subtitle": "تتبّع وأدر دخلك ومصروفاتك.",
+    "add": "إضافة معاملة",
+    "addTitle": "إضافة معاملة",
+    "editTitle": "تعديل معاملة",
+    "searchPlaceholder": "ابحث بالعنوان أو الفئة...",
+    "filters": {
+      "all": "الكل",
+      "income": "دخل",
+      "expense": "مصروف"
+    },
+    "types": {
+      "INCOME": "دخل",
+      "EXPENSE": "مصروف"
+    },
+    "uncategorized": "بدون فئة",
+    "emptyTitle": "لا توجد معاملات بعد",
+    "emptyDescription": "أنشئ أول معاملة لك لبدء تتبع أموالك.",
+    "deleteTitle": "حذف المعاملة؟",
+    "deleteMessage": "هل أنت متأكد من حذف \"{{title}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+    "form": {
+      "title": "العنوان",
+      "titlePlaceholder": "مثال: مشتريات البقالة",
+      "amount": "المبلغ",
+      "amountPlaceholder": "0.00",
+      "type": "نوع المعاملة",
+      "category": "الفئة",
+      "categoryPlaceholder": "اختر فئة",
+      "noCategories": "لا توجد فئات لهذا النوع. أنشئ فئة أولاً.",
+      "date": "التاريخ",
+      "create": "إنشاء المعاملة",
+      "save": "حفظ التغييرات"
+    },
+    "validation": {
+      "title": "يجب أن يكون العنوان حرفين على الأقل",
+      "amount": "أدخل مبلغًا صالحًا أكبر من صفر",
+      "type": "اختر نوع المعاملة",
+      "category": "اختر فئة",
+      "date": "اختر تاريخًا"
+    },
+    "toasts": {
+      "created": "تم إنشاء المعاملة بنجاح",
+      "updated": "تم تحديث المعاملة بنجاح",
+      "deleted": "تم حذف المعاملة بنجاح"
+    }
+  },
+  "errors": {
+    "network": "خطأ في الشبكة. يرجى التحقق من اتصالك.",
+    "unauthorized": "انتهت جلستك. يرجى تسجيل الدخول مرة أخرى.",
+    "validation": "يرجى التحقق من المدخلات والمحاولة مرة أخرى.",
+    "server": "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى.",
+    "somethingWrong": "حدث خطأ ما"
+  },
+  "categories": {
+    "Salary": "الراتب",
+    "Freelance": "عمل حر",
+    "Bonus": "مكافأة",
+    "Investment": "استثمار",
+    "Gift": "هدية",
+    "Food": "الطعام",
+    "Transport": "المواصلات",
+    "Shopping": "التسوق",
+    "Bills": "الفواتير",
+    "Rent": "الإيجار",
+    "Health": "الصحة",
+    "Entertainment": "الترفيه",
+    "Education": "التعليم",
+    "Travel": "السفر",
+    "Other": "أخرى"
+  },
+  "validation": {
+    "fullName": {
+      "min": "يجب أن يكون الاسم الكامل 3 أحرف على الأقل"
+    },
+    "email": {
+      "invalid": "بريد إلكتروني غير صالح"
+    },
+    "password": {
+      "min": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
+    }
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "welcome": {
+    "eyebrow": "مرحبًا",
+    "title": "فينوفا",
+    "subtitle": "التمويل الشخصي الذكي",
+    "description": "تتبّع دخلك ومصروفاتك وميزانياتك ومدخراتك في مكان واحد.",
+    "continueEn": "Continue in English",
+    "continueAr": "المتابعة بالعربية",
+    "continue": "متابعة",
+    "chooseLanguage": "اختر لغتك",
+    "selected": "محددة"
+  }
+}
