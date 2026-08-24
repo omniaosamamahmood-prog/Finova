@@ -4,7 +4,7 @@ function TransactionSkeleton() {
       {Array.from({ length: 4 }).map((_, index) => (
         <div
           key={index}
-          className="animate-pulse rounded-2xl border border-border bg-surface p-5"
+          className="ui-card animate-pulse p-5"
         >
           <div className="flex items-start justify-between gap-3">
             <div className="space-y-2">

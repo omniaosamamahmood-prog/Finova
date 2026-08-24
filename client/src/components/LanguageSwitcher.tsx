@@ -4,7 +4,11 @@ import {
   type AppLanguage,
 } from "../utils/language";
 
-function LanguageSwitcher() {
+type LanguageSwitcherProps = {
+  className?: string;
+};
+
+function LanguageSwitcher({ className = "" }: LanguageSwitcherProps) {
   const { i18n, t } = useTranslation();
 
   const setLang = (lng: AppLanguage) => {
@@ -12,15 +16,20 @@ function LanguageSwitcher() {
     void i18n.changeLanguage(lng);
   };
 
+  const isEn = i18n.language.startsWith("en");
+  const isAr = i18n.language.startsWith("ar");
+
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className={`inline-flex rounded-xl border border-border bg-bg p-1 ${className}`}
+    >
       <button
         type="button"
         onClick={() => setLang("en")}
-        className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-          i18n.language === "en"
-            ? "bg-primary text-fg"
-            : "bg-transparent text-fg-muted hover:bg-surface-hover hover:text-fg"
+        className={`flex-1 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+          isEn
+            ? "bg-primary text-white shadow-sm"
+            : "text-fg-muted hover:text-fg"
         }`}
       >
         {t("language.english")}
@@ -29,10 +38,10 @@ function LanguageSwitcher() {
       <button
         type="button"
         onClick={() => setLang("ar")}
-        className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-          i18n.language === "ar"
-            ? "bg-primary text-fg"
-            : "bg-transparent text-fg-muted hover:bg-surface-hover hover:text-fg"
+        className={`flex-1 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+          isAr
+            ? "bg-primary text-white shadow-sm"
+            : "text-fg-muted hover:text-fg"
         }`}
       >
         {t("language.arabic")}

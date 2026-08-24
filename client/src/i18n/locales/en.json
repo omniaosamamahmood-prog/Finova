@@ -7,7 +7,8 @@
     "cancel": "Cancel",
     "close": "Close",
     "retry": "Retry",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "mainNav": "Main navigation"
   },
   "auth": {
     "login": {
@@ -18,7 +19,8 @@
       "forgot": "Forgot Password?",
       "loginBtn": "Login",
       "noAccount": "Don't have an account?",
-      "register": "Register"
+      "register": "Register",
+      "verifyRequired": "Please verify your email before signing in."
     },
     "register": {
       "title": "Create Account",
@@ -34,24 +36,240 @@
     "server": {
       "registrationFailed": "Registration failed",
       "somethingWrong": "Something went wrong"
+    },
+    "google": {
+      "or": "OR",
+      "continue": "Continue with Google",
+      "notConfigured": "Google sign-in is not configured.",
+      "failed": "Google sign-in failed",
+      "invalidCredential": "Invalid credential",
+      "emailNotVerified": "Email not verified",
+      "emailMissing": "Google account email is missing",
+      "notConfiguredServer": "Google sign-in is not configured",
+      "passwordNotSet": "This account uses Google sign-in. Set a password in Settings, or continue with Google."
+    },
+    "email": {
+      "notConfigured": "Email service is not configured on the server",
+      "senderNotVerified": "The email sender address is not allowed by the mail server",
+      "deliveryRestricted": "Could not deliver email to this address. Please try again."
+    },
+    "forgot": {
+      "title": "Forgot password",
+      "subtitle": "Enter your email and we'll send a reset link if an account exists.",
+      "email": "Email",
+      "emailPlaceholder": "Email Address",
+      "submit": "Send reset link",
+      "success": "Check your inbox. If an account exists, a reset link was sent.",
+      "backToLogin": "Back to login",
+      "sendFailed": "Could not send the reset email. Please try again."
+    },
+    "reset": {
+      "title": "Reset password",
+      "subtitle": "Choose a new password for your Finova account.",
+      "password": "New password",
+      "confirmPassword": "Confirm password",
+      "submit": "Update password",
+      "invalidToken": "This reset link is invalid or incomplete.",
+      "requestNew": "Request a new reset link",
+      "failed": "Could not reset your password. Please try again.",
+      "validation": {
+        "confirm": "Please confirm your password",
+        "mismatch": "Passwords do not match"
+      }
+    },
+    "verify": {
+      "loadingTitle": "Verifying your email…",
+      "loadingBody": "Please wait while we confirm your address.",
+      "successTitle": "Email verified",
+      "successBody": "Your email is verified. You can sign in now.",
+      "expiredTitle": "Link expired",
+      "expiredBody": "This verification link has expired. Request a new one to continue.",
+      "failedTitle": "Verification failed",
+      "failedBody": "This verification link is invalid or already used.",
+      "goToLogin": "Go to login",
+      "resend": "Resend verification email"
+    },
+    "verificationSent": {
+      "title": "Check your email",
+      "subtitle": "We sent a verification link to your inbox. Verify your email before signing in.",
+      "email": "Email",
+      "resend": "Resend verification email",
+      "resendSuccess": "If an account exists for this email, a verification link was sent.",
+      "resendFailed": "Could not resend the verification email. Please try again.",
+      "resendHint": "If you don't see the email, check your spam folder. During local development, the server console may also print a verification link.",
+      "backToLogin": "Back to login"
     }
   },
   "navigation": {
     "dashboard": "Dashboard",
     "transactions": "Transactions",
-    "accounts": "Accounts",
+    "adminPlatform": "Admin Platform",
+    "categories": "Categories",
     "budgets": "Budgets",
     "goals": "Goals",
+    "recurring": "Recurring",
+    "reports": "Reports",
+    "settings": "Settings",
     "logout": "Logout"
   },
   "dashboard": {
     "welcome": "Welcome back, {{name}}.",
     "greeting": "Welcome back",
+    "overview": "Here's your financial overview.",
     "summarySection": "Account summary",
     "totalBalance": "Total Balance",
     "income": "Income",
     "expenses": "Expenses",
-    "transactions": "Transactions"
+    "transactions": "Transactions",
+    "budgetProgress": "Budget Progress",
+    "goalProgress": "Goal Progress",
+    "viewAll": "View all",
+    "noBudgetsYet": "No budgets yet. Create one to track spending.",
+    "noGoalsYet": "No goals yet. Create one to track savings.",
+    "upcomingRecurring": "Upcoming Recurring Transactions",
+    "noRecurringYet": "No upcoming recurring transactions.",
+    "onboarding": {
+      "title": "Welcome to Finova",
+      "description": "It looks like you're just getting started. Complete the steps below to build your financial dashboard.",
+      "checklistLabel": "Getting started",
+      "stepTransaction": "Create your first transaction",
+      "stepBudget": "Create your first budget",
+      "stepGoal": "Create your first financial goal",
+      "stepDone": "Completed",
+      "stepTodo": "Not started",
+      "addFirstTransaction": "Add First Transaction",
+      "addTransaction": "Add Transaction",
+      "createBudget": "Create Budget",
+      "createGoal": "Create Goal",
+      "addRecurring": "Add Recurring",
+      "noTransactionsTitle": "No transactions yet.",
+      "noTransactionsDescription": "Start by recording your first income or expense.",
+      "recurringEmptyTitle": "No recurring transactions yet.",
+      "recurringEmptyDescription": "Set up salary, bills, or subscriptions so they are added automatically.",
+      "budgetEmptyTitle": "No budgets yet.",
+      "budgetEmptyDescription": "Create a budget to track spending by category.",
+      "goalEmptyTitle": "No goals yet.",
+      "goalEmptyDescription": "Set a savings goal and watch your progress."
+    }
+  },
+  "insights": {
+    "sectionTitle": "Financial Insights",
+    "sectionLabel": "Financial insights",
+    "empty": "No financial insights available.",
+    "highestSpending": {
+      "title": "Highest spending category",
+      "message": "{{category}} is your highest spending category this month."
+    },
+    "budgetWarning": {
+      "title": "Budget warning",
+      "message": "You're close to exceeding your {{category}} budget."
+    },
+    "budgetExceeded": {
+      "title": "Budget exceeded",
+      "message": "You exceeded your {{category}} budget by {{amount}}."
+    },
+    "goalClose": {
+      "title": "Goal almost complete",
+      "message": "You're very close to reaching your \"{{name}}\" goal."
+    },
+    "goalComplete": {
+      "title": "Goal completed",
+      "message": "Congratulations! You completed your goal \"{{name}}\"."
+    },
+    "savingsPositive": {
+      "title": "Great saving month",
+      "message": "You saved {{percent}}% of your income this month."
+    },
+    "savingsNegative": {
+      "title": "Spending exceeded income",
+      "message": "Your expenses exceeded your income this month."
+    },
+    "noTransactions": {
+      "title": "No activity",
+      "message": "No transactions recorded this month."
+    },
+    "recurringDue": {
+      "title": "Recurring expenses this month",
+      "message": "You have {{count}} recurring expenses totaling {{amount}} due this month."
+    }
+  },
+  "goals": {
+    "subtitle": "Set savings targets and track your progress.",
+    "add": "Add Goal",
+    "addTitle": "Add Goal",
+    "editTitle": "Edit Goal",
+    "emptyTitle": "No goals yet",
+    "emptyDescription": "Create your first goal to start saving toward something meaningful.",
+    "deleteTitle": "Delete goal?",
+    "deleteMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+    "completed": "Goal reached",
+    "overdue": "Past target date",
+    "labels": {
+      "target": "Target",
+      "saved": "Saved",
+      "remaining": "Remaining",
+      "progress": "Progress",
+      "targetDate": "Target date",
+      "noDate": "No date"
+    },
+    "form": {
+      "name": "Goal name",
+      "namePlaceholder": "e.g. Emergency fund",
+      "targetAmount": "Target amount",
+      "targetAmountPlaceholder": "0.00",
+      "currentAmount": "Current amount",
+      "currentAmountPlaceholder": "0.00",
+      "targetDate": "Target date",
+      "targetDateHint": "Optional",
+      "create": "Create Goal",
+      "save": "Save Changes"
+    },
+    "validation": {
+      "name": "Name must be at least 2 characters",
+      "targetAmount": "Enter a valid amount greater than zero",
+      "currentAmount": "Current amount cannot be negative"
+    },
+    "toasts": {
+      "created": "Goal created successfully",
+      "updated": "Goal updated successfully",
+      "deleted": "Goal deleted successfully"
+    }
+  },
+  "budgets": {
+    "subtitle": "Set spending limits and track progress by category.",
+    "add": "Add Budget",
+    "addTitle": "Add Budget",
+    "editTitle": "Edit Budget",
+    "emptyTitle": "No budgets yet",
+    "emptyDescription": "Create your first budget to start tracking category spending.",
+    "deleteTitle": "Delete budget?",
+    "deleteMessage": "Are you sure you want to delete the budget for \"{{category}}\"? Your category and transactions will not be deleted.",
+    "exceeded": "Budget exceeded",
+    "labels": {
+      "budget": "Budget",
+      "spent": "Spent",
+      "remaining": "Remaining",
+      "progress": "Progress"
+    },
+    "form": {
+      "category": "Category",
+      "categoryPlaceholder": "Select a category",
+      "amount": "Budget Amount",
+      "amountPlaceholder": "0.00",
+      "noExpenseCategories": "No expense categories available.",
+      "allCategoriesUsed": "All expense categories already have a budget.",
+      "create": "Create Budget",
+      "save": "Save Changes"
+    },
+    "validation": {
+      "category": "Select a category",
+      "amount": "Enter a valid amount greater than zero"
+    },
+    "toasts": {
+      "created": "Budget created successfully",
+      "updated": "Budget updated successfully",
+      "deleted": "Budget deleted successfully"
+    }
   },
   "transactions": {
     "subtitle": "Track and manage your income and expenses.",
@@ -99,6 +317,171 @@
       "deleted": "Transaction deleted successfully"
     }
   },
+  "reports": {
+    "eyebrow": "Monthly Report",
+    "subtitle": "Spending insights for {{period}}.",
+    "period": "{{month}} {{year}}",
+    "month": "Month",
+    "year": "Year",
+    "filters": "Report filters",
+    "summarySection": "Report summary",
+    "totalExpense": "Total Expense",
+    "categories": "Categories",
+    "highestCategory": "Highest Category",
+    "noCategory": "No category",
+    "expenseByCategory": "Expense by Category",
+    "monthlyTrend": "Monthly Trend",
+    "topCategories": "Top Spending Categories",
+    "income": "Income",
+    "expense": "Expense",
+    "amount": "Amount",
+    "percentage": "Percentage",
+    "noData": "No data",
+    "emptyTitle": "No report data available",
+    "emptyDescription": "There are no expense transactions for the selected month. Try a different period or add a transaction.",
+    "chartEmpty": "No category spending to chart.",
+    "topEmpty": "No spending categories for this month.",
+    "trendEmpty": "No income or expense data for this year.",
+    "export": {
+      "download": "Download PDF",
+      "generating": "Generating PDF...",
+      "success": "Report downloaded",
+      "error": "Could not generate the PDF. Please try again.",
+      "arabicFontError": "Could not load the Arabic PDF font. Check your connection and try again.",
+      "reportTitle": "Monthly Financial Report",
+      "generatedOn": "Generated on {{date}}",
+      "summaryTitle": "Financial Summary",
+      "income": "Total Income",
+      "expense": "Total Expense",
+      "balance": "Net Balance",
+      "transactions": "Transactions",
+      "budgetsTitle": "Budgets",
+      "goalsTitle": "Goals",
+      "emptySection": "No data available for this section.",
+      "category": "Category",
+      "status": "Status",
+      "onTrack": "On track",
+      "footer": "Finova • Smart Personal Finance",
+      "page": "Page"
+    }
+  },
+  "recurring": {
+    "subtitle": "Create a schedule once and Finova will add the real transactions automatically.",
+    "add": "Add Recurring Transaction",
+    "addTitle": "Add Recurring Transaction",
+    "editTitle": "Edit Recurring Transaction",
+    "emptyTitle": "No recurring transactions",
+    "emptyDescription": "Set up salary, subscriptions, or bills so they are created on schedule.",
+    "emptyFilterTitle": "No matching schedules",
+    "emptyFilterDescription": "Try a different status filter.",
+    "deleteTitle": "Delete recurring schedule?",
+    "deleteMessage": "Delete \"{{title}}\"? Future automatic transactions will stop. Transactions already created will not be deleted.",
+    "pause": "Pause",
+    "resume": "Resume",
+    "active": "Active",
+    "paused": "Paused",
+    "filters": {
+      "ALL": "All",
+      "ACTIVE": "Active",
+      "PAUSED": "Paused"
+    },
+    "frequency": {
+      "DAILY": "Daily",
+      "WEEKLY": "Weekly",
+      "MONTHLY": "Monthly",
+      "YEARLY": "Yearly"
+    },
+    "labels": {
+      "amount": "Amount",
+      "frequency": "Frequency",
+      "type": "Type",
+      "nextRun": "Next occurrence",
+      "startDate": "Start date"
+    },
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "e.g. Netflix",
+      "amount": "Amount",
+      "amountPlaceholder": "0.00",
+      "type": "Transaction Type",
+      "category": "Category",
+      "categoryPlaceholder": "Select a category",
+      "noCategories": "No categories for this type. Create a category first.",
+      "frequency": "Frequency",
+      "startDate": "Start Date",
+      "active": "Active schedule",
+      "create": "Create Schedule",
+      "save": "Save Changes"
+    },
+    "validation": {
+      "title": "Title must be at least 2 characters",
+      "amount": "Enter a valid amount greater than zero",
+      "category": "Select a category",
+      "startDate": "Select a start date",
+      "frequency": "Select a frequency"
+    },
+    "toasts": {
+      "created": "Recurring transaction created",
+      "updated": "Recurring transaction updated",
+      "deleted": "Recurring schedule deleted. Existing transactions were kept.",
+      "paused": "Schedule paused",
+      "resumed": "Schedule resumed"
+    },
+    "errors": {
+      "notFound": "Recurring transaction not found",
+      "categoryType": "The selected category does not match this transaction type",
+      "invalidStartDate": "Enter a valid start date"
+    }
+  },
+  "settings": {
+    "subtitle": "Manage your profile, security, and language preferences.",
+    "tabsLabel": "Settings sections",
+    "tabs": {
+      "profile": "Profile",
+      "security": "Security",
+      "preferences": "Preferences"
+    },
+    "profile": {
+      "fullName": "Full name",
+      "email": "Email",
+      "emailHint": "Email cannot be changed.",
+      "createdAt": "Account created",
+      "uploadPhoto": "Upload photo",
+      "replacePhoto": "Replace photo",
+      "removePhoto": "Remove",
+      "avatarHint": "JPG, PNG, WEBP, or GIF. Max 2MB.",
+      "save": "Save changes"
+    },
+    "security": {
+      "subtitle": "Update your password. You will stay signed in after the change.",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "updatePassword": "Update password"
+    },
+    "preferences": {
+      "subtitle": "Choose how Finova looks and feels for you.",
+      "language": "Language",
+      "languageHint": "The app updates immediately. Your choice is saved on this device."
+    },
+    "validation": {
+      "currentPassword": "Current password is required",
+      "confirmPassword": "Please confirm your new password",
+      "passwordMismatch": "Passwords do not match",
+      "avatarType": "Please choose an image file",
+      "avatarSize": "Image must be 2MB or smaller"
+    },
+    "errors": {
+      "currentPassword": "Current password is incorrect",
+      "avatarUpload": "Could not upload the photo. Please try again.",
+      "noChanges": "No changes to save",
+      "notFound": "Profile not found"
+    },
+    "toasts": {
+      "profileUpdated": "Profile updated successfully",
+      "passwordUpdated": "Password updated successfully"
+    }
+  },
   "errors": {
     "network": "Network error. Please check your connection.",
     "unauthorized": "Your session has expired. Please log in again.",
@@ -106,22 +489,93 @@
     "server": "Something went wrong on the server. Please try again.",
     "somethingWrong": "Something went wrong"
   },
+  "ai": {
+    "open": "Ask Finova AI",
+    "shortTitle": "AI",
+    "title": "Finova AI",
+    "subtitle": "Personal finance assistant",
+    "welcomeTitle": "How can I help?",
+    "welcomeBody": "I use your current-month summary, budgets, and goals to answer practical money questions.",
+    "suggestionsLabel": "Try asking",
+    "placeholder": "Ask about spending, budgets, or goals...",
+    "inputLabel": "Message",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "suggestions": {
+      "analyzeSpending": "Analyze my spending",
+      "saveMore": "How can I save more this month?",
+      "budgetNearLimit": "Which budget is closest to the limit?",
+      "topCategory": "What is my highest spending category?",
+      "goalsProgress": "How are my goals progressing?"
+    },
+    "errors": {
+      "failed": "Could not get an AI response. Please try again.",
+      "busy": "AI is temporarily busy. Please try again shortly.",
+      "unavailable": "AI service is temporarily unavailable",
+      "notConfigured": "AI is not configured on the server"
+    }
+  },
   "categories": {
-    "Salary": "Salary",
-    "Freelance": "Freelance",
-    "Bonus": "Bonus",
-    "Investment": "Investment",
-    "Gift": "Gift",
-    "Food": "Food",
-    "Transport": "Transport",
-    "Shopping": "Shopping",
-    "Bills": "Bills",
-    "Rent": "Rent",
-    "Health": "Health",
-    "Entertainment": "Entertainment",
-    "Education": "Education",
-    "Travel": "Travel",
-    "Other": "Other"
+    "subtitle": "Organize income and expense categories for transactions and budgets.",
+    "add": "Add Category",
+    "addTitle": "Add Category",
+    "editTitle": "Edit Category",
+    "searchPlaceholder": "Search by name...",
+    "emptyTitle": "No categories yet",
+    "emptyDescription": "Create your first category to start grouping transactions.",
+    "emptyFilterTitle": "No matching categories",
+    "emptyFilterDescription": "Try a different search or filter.",
+    "deleteTitle": "Delete category?",
+    "deleteMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+    "filters": {
+      "all": "All",
+      "income": "Income",
+      "expense": "Expense"
+    },
+    "types": {
+      "INCOME": "Income",
+      "EXPENSE": "Expense"
+    },
+    "form": {
+      "name": "Category name",
+      "namePlaceholder": "e.g. Groceries",
+      "type": "Category type",
+      "create": "Create Category",
+      "save": "Save Changes"
+    },
+    "validation": {
+      "name": "Name must be at least 2 characters",
+      "type": "Select a category type"
+    },
+    "toasts": {
+      "created": "Category created successfully",
+      "updated": "Category updated successfully",
+      "deleted": "Category deleted successfully"
+    },
+    "errors": {
+      "duplicate": "A category with this name and type already exists",
+      "hasTransactions": "This category cannot be deleted because it is used by transactions.",
+      "hasBudget": "This category cannot be deleted because it is used by a budget.",
+      "notFound": "Category not found",
+      "hasRecurring": "This category cannot be deleted because it is used by recurring transactions."
+    },
+    "names": {
+      "Salary": "Salary",
+      "Freelance": "Freelance",
+      "Bonus": "Bonus",
+      "Investment": "Investment",
+      "Gift": "Gift",
+      "Food": "Food",
+      "Transport": "Transport",
+      "Shopping": "Shopping",
+      "Bills": "Bills",
+      "Rent": "Rent",
+      "Health": "Health",
+      "Entertainment": "Entertainment",
+      "Education": "Education",
+      "Travel": "Travel",
+      "Other": "Other"
+    }
   },
   "validation": {
     "fullName": {
@@ -138,15 +592,122 @@
     "english": "English",
     "arabic": "العربية"
   },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "admin": {
+    "subtitle": "Read-only overview of users and product feedback.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "feedback": "Feedback"
+    },
+    "accessDenied": {
+      "title": "Access Denied",
+      "body": "You do not have permission to view the Admin Platform.",
+      "goDashboard": "Go to Dashboard"
+    },
+    "stats": {
+      "users": "Users",
+      "verified": "Verified users",
+      "feedback": "Feedback",
+      "averageRating": "Average rating",
+      "feedbackByType": "Feedback by category"
+    },
+    "users": {
+      "empty": "No users yet",
+      "emptyDescription": "Registered accounts will appear here.",
+      "name": "Name",
+      "email": "Email",
+      "verified": "Verified",
+      "google": "Google",
+      "joined": "Joined",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "feedback": {
+      "empty": "No feedback yet",
+      "emptyDescription": "User feedback will appear here when it is submitted.",
+      "featureRequest": "Feature request",
+      "page": "Page",
+      "browser": "Browser",
+      "date": "Date"
+    }
+  },
+  "feedback": {
+    "button": " Feedback",
+    "kicker": "Your voice matters",
+    "dialogTitle": "Help us improve Finova ",
+    "rating": "Rating",
+    "starAria": "{{count}} star",
+    "category": "Category",
+    "types": {
+      "GENERAL": "General Feedback",
+      "BUG": "Bug Report",
+      "FEATURE": "Feature Request",
+      "UI_UX": "UI / UX",
+      "PERFORMANCE": "Performance"
+    },
+    "message": "Feedback",
+    "messagePlaceholder": "Tell us what you liked or how we can improve Finova...",
+    "featureRequest": "Feature Request",
+    "featureRequestPlaceholder": "Describe your idea...",
+    "submit": "Submit",
+    "success": "Thank you for helping improve Finova!",
+    "prompt": {
+      "title": " Enjoying Finova?",
+      "body": "Would you like to leave us feedback?",
+      "leave": "Leave Feedback",
+      "later": "Maybe Later"
+    },
+    "validation": {
+      "rating": "Please choose a rating from 1 to 5",
+      "message": "Please enter your feedback",
+      "messageMax": "Feedback must be 1000 characters or less",
+      "featureMax": "Feature request must be 1000 characters or less"
+    },
+    "errors": {
+      "submitFailed": "Could not send your feedback. Please try again."
+    }
+  },
   "welcome": {
-    "eyebrow": "Welcome",
-    "title": "Finova",
+    "badge": "Personal finance OS",
+    "headline": "A clearer view of every pound you earn and spend.",
     "subtitle": "Smart Personal Finance",
-    "description": "Track your income, expenses, budgets and savings in one place.",
+    "description": "Track transactions, set budgets, and reach savings goals in one bilingual workspace built for daily money decisions.",
     "continueEn": "Continue in English",
     "continueAr": "المتابعة بالعربية",
-    "continue": "Continue",
-    "chooseLanguage": "Choose your language",
-    "selected": "Selected"
+    "continue": "Get started",
+    "chooseLanguage": "Choose your language to begin",
+    "selected": "Selected",
+    "login": "Sign in",
+    "haveAccount": "Already have an account? Sign in",
+    "preview": {
+      "caption": "This month at a glance",
+      "live": "Live preview",
+      "balance": "Total balance",
+      "income": "Income",
+      "food": "Food",
+      "rent": "Rent",
+      "tx1": "Grocery shopping",
+      "tx2": "Salary"
+    },
+    "features": {
+      "track": {
+        "title": "Track every move",
+        "description": "Log income and expenses with categories so spending patterns stay visible, not guessed."
+      },
+      "budget": {
+        "title": "Stay within limits",
+        "description": "Set category budgets and watch progress before you overspend — not after."
+      },
+      "goals": {
+        "title": "Save with intent",
+        "description": "Give every goal a target, a date, and a progress bar you can actually finish."
+      }
+    }
   }
 }

@@ -5,6 +5,8 @@ import "./index.css";
 import "./i18n";
 import App from "./App.tsx";
 import { ToastProvider } from "./components/ui/Toast.tsx";
+import { ThemeProvider } from "./contexts/ThemeContext.tsx";
+import GoogleAuthProvider from "./components/auth/GoogleAuthProvider.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,9 +21,13 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ToastProvider>
-        <App />
-      </ToastProvider>
+      <ThemeProvider>
+        <ToastProvider>
+          <GoogleAuthProvider>
+            <App />
+          </GoogleAuthProvider>
+        </ToastProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   </StrictMode>
 );

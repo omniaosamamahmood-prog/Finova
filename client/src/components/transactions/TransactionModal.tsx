@@ -55,7 +55,7 @@ function TransactionModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="transaction-modal-title"
-        className="relative z-10 flex max-h-[92vh] w-full flex-col rounded-t-3xl border border-border bg-bg-elevated shadow-card sm:max-w-lg sm:rounded-2xl"
+        className="relative z-10 flex max-h-[92vh] w-full flex-col rounded-t-3xl border border-border bg-bg-elevated shadow-card-hover sm:max-w-lg sm:rounded-2xl"
       >
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h2

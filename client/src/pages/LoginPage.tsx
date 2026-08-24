@@ -10,7 +10,11 @@ import {
 } from "../validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import api from "../services/api";
+import { persistAuthSession } from "../services/auth.service";
 import { useTranslation } from "react-i18next";
+import AuthShell from "../components/ui/AuthShell";
+import BrandMark from "../components/BrandMark";
+import AuthGoogleSection from "../components/auth/AuthGoogleSection";
 
 function LoginPage() {
   const [serverError, setServerError] = useState("");
@@ -19,7 +23,7 @@ function LoginPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
@@ -28,13 +32,19 @@ function LoginPage() {
     try {
       setServerError("");
       const response = await api.post("auth/login", data);
-      localStorage.setItem("token", response.data.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.data.user));
+      persistAuthSession(response.data.data);
       navigate("/dashboard");
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        const message = error.response?.data?.message as string | undefined;
+        if (message === "Please verify your email") {
+          setServerError(t("auth.login.verifyRequired"));
+          return;
+        }
         setServerError(
-          error.response?.data?.message || t("auth.server.registrationFailed")
+          message
+            ? t(message, { defaultValue: message })
+            : t("auth.server.registrationFailed")
         );
       } else {
         setServerError(t("auth.server.somethingWrong"));
@@ -43,19 +53,14 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-bg px-4">
-      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-8 shadow-card">
-        <div>
-          <h1 className="text-4xl font-bold text-primary">
-            {t("common.appName")}
-          </h1>
-          <p className="mt-2 text-fg-muted">{t("common.tagline")}</p>
-        </div>
+    <AuthShell>
+      <div className="ui-card p-8">
+        <BrandMark />
 
-        <h2 className="mt-8 text-2xl font-semibold text-fg">
+        <h2 className="mt-8 text-2xl font-semibold tracking-tight text-fg">
           {t("auth.login.title")}
         </h2>
-        <p className="mt-1 text-fg-muted">{t("auth.login.subtitle")}</p>
+        <p className="mt-1 text-sm text-fg-muted">{t("auth.login.subtitle")}</p>
 
         <form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <Input
@@ -80,16 +85,33 @@ function LoginPage() {
             </p>
           )}
 
-          <p className="cursor-pointer text-end text-sm text-primary hover:underline">
-            {t("auth.login.forgot")}
+          <p className="text-end text-sm font-medium">
+            <Link
+              to="/forgot-password"
+              className="text-primary hover:underline"
+            >
+              {t("auth.login.forgot")}
+            </Link>
           </p>
 
           {serverError && <p className="text-sm text-danger">{serverError}</p>}
 
-          <Button text={t("auth.login.loginBtn")} type="submit" />
+          <Button
+            text={t("auth.login.loginBtn")}
+            type="submit"
+            isLoading={isSubmitting}
+          />
         </form>
 
-        <p className="mt-8 text-center text-fg-muted">
+        <AuthGoogleSection
+          disabled={isSubmitting}
+          onSuccess={() => navigate("/dashboard")}
+          onError={(messageKey) =>
+            setServerError(t(messageKey, { defaultValue: messageKey }))
+          }
+        />
+
+        <p className="mt-8 text-center text-sm text-fg-muted">
           {t("auth.login.noAccount")}{" "}
           <Link
             to="/register"
@@ -99,7 +121,7 @@ function LoginPage() {
           </Link>
         </p>
       </div>
-    </div>
+    </AuthShell>
   );
 }
 

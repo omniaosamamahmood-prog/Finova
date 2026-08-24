@@ -12,11 +12,11 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-fg hover:bg-primary-hover focus-visible:ring-primary/40",
+    "bg-primary text-white shadow-sm shadow-primary/20 hover:bg-primary-hover focus-visible:ring-primary/40",
   secondary:
     "bg-surface text-fg border border-border hover:bg-surface-hover focus-visible:ring-border",
   danger:
-    "bg-danger text-fg hover:bg-danger-hover focus-visible:ring-danger/40",
+    "bg-danger text-white shadow-sm shadow-danger/20 hover:bg-danger-hover focus-visible:ring-danger/40",
 };
 
 function Button({
@@ -32,7 +32,7 @@ function Button({
     <button
       {...props}
       disabled={disabled || isLoading}
-      className={`inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${className}`}
+      className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${className}`}
     >
       {isLoading && <Loader2 className="size-4 animate-spin" aria-hidden />}
       {children ?? text}

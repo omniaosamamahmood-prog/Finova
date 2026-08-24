@@ -7,7 +7,6 @@ type SidebarProps = {
 const navItems = [
   { key: "dashboard", active: true },
   { key: "transactions", active: false },
-  { key: "accounts", active: false },
   { key: "budgets", active: false },
   { key: "goals", active: false },
 ] as const;

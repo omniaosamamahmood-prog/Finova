@@ -11,7 +11,9 @@ import { useState } from "react";
 import axios from "axios";
 import api from "../services/api";
 import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "../components/LanguageSwitcher";
+import AuthShell from "../components/ui/AuthShell";
+import BrandMark from "../components/BrandMark";
+import AuthGoogleSection from "../components/auth/AuthGoogleSection";
 
 function RegisterPage() {
   const [serverError, setServerError] = useState("");
@@ -20,7 +22,7 @@ function RegisterPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
@@ -29,8 +31,13 @@ function RegisterPage() {
     try {
       const response = await api.post("/auth/register", data);
       setServerError("");
-      console.log(response.data);
-      navigate("/login");
+      navigate("/email-verification-sent", {
+        state: {
+          email: data.email.trim().toLowerCase(),
+          emailSent: response.data.emailSent !== false,
+          registerMessage: response.data.message as string | undefined,
+        },
+      });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setServerError(
@@ -43,22 +50,16 @@ function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-bg px-4">
-      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-8 shadow-card">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <h1 className="text-4xl font-bold text-primary">
-              {t("common.appName")}
-            </h1>
-            <p className="mt-2 text-fg-muted">{t("common.tagline")}</p>
-          </div>
-          <LanguageSwitcher />
-        </div>
+    <AuthShell>
+      <div className="ui-card p-8">
+        <BrandMark />
 
-        <h2 className="mt-8 text-2xl font-semibold text-fg">
+        <h2 className="mt-8 text-2xl font-semibold tracking-tight text-fg">
           {t("auth.register.title")}
         </h2>
-        <p className="mt-1 text-fg-muted">{t("auth.register.subtitle")}</p>
+        <p className="mt-1 text-sm text-fg-muted">
+          {t("auth.register.subtitle")}
+        </p>
 
         <form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <Input
@@ -94,20 +95,24 @@ function RegisterPage() {
             </p>
           )}
 
-          <label className="flex items-center gap-2 text-sm text-fg-muted">
-            <input
-              type="checkbox"
-              className="size-4 rounded border-border bg-surface accent-primary"
-            />
-            {t("auth.register.terms")}
-          </label>
-
           {serverError && <p className="text-sm text-danger">{serverError}</p>}
 
-          <Button text={t("auth.register.createBtn")} type="submit" />
+          <Button
+            text={t("auth.register.createBtn")}
+            type="submit"
+            isLoading={isSubmitting}
+          />
         </form>
 
-        <p className="mt-8 text-center text-fg-muted">
+        <AuthGoogleSection
+          disabled={isSubmitting}
+          onSuccess={() => navigate("/dashboard")}
+          onError={(messageKey) =>
+            setServerError(t(messageKey, { defaultValue: messageKey }))
+          }
+        />
+
+        <p className="mt-8 text-center text-sm text-fg-muted">
           {t("auth.register.haveAccount")}{" "}
           <Link
             to="/login"
@@ -117,7 +122,7 @@ function RegisterPage() {
           </Link>
         </p>
       </div>
-    </div>
+    </AuthShell>
   );
 }
 

@@ -7,5 +7,21 @@
 *
 * 🟢 You can import this file directly.
 */
-export {};
+export const TransactionType = {
+    INCOME: 'INCOME',
+    EXPENSE: 'EXPENSE'
+};
+export const RecurrenceFrequency = {
+    DAILY: 'DAILY',
+    WEEKLY: 'WEEKLY',
+    MONTHLY: 'MONTHLY',
+    YEARLY: 'YEARLY'
+};
+export const FeedbackType = {
+    GENERAL: 'GENERAL',
+    BUG: 'BUG',
+    FEATURE: 'FEATURE',
+    UI_UX: 'UI_UX',
+    PERFORMANCE: 'PERFORMANCE'
+};
 //# sourceMappingURL=enums.js.map

@@ -219,6 +219,17 @@ export async function deleteCategory(req: AuthRequest, res: Response) {
       return res.status(400).json({ success: false, message: "Cannot delete category with transactions" });
     }
 
+    const recurringCount = await prisma.recurringTransaction.count({
+      where: { categoryId: id },
+    });
+
+    if (recurringCount > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Cannot delete category with recurring transactions",
+      });
+    }
+
     await prisma.category.delete({ where: { id } });
 
     return res.status(200).json({ success: true, message: "Category deleted successfully" });

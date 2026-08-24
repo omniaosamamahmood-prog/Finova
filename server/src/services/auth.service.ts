@@ -2,6 +2,7 @@ import prisma from "../config/prisma.js";
 import { comparePassword, hashPassword } from "../utils/hash.js";
 import { generateToken } from "../utils/token.js";
 import { createDefaultCategoriesForUser } from "./category.service.js";
+import { issueEmailVerification } from "./authEmail.service.js";
 
 interface RegisterData {
   fullName: string;
@@ -14,11 +15,24 @@ interface LoginData {
   password: string;
 }
 
-export async function registerUser(data: RegisterData) {
+const userSelect = {
+  id: true,
+  fullName: true,
+  email: true,
+  avatarUrl: true,
+  emailVerified: true,
+  createdAt: true,
+  updatedAt: true,
+} as const;
+
+export async function registerUser(
+  data: RegisterData,
+  apiBaseUrl: string
+) {
+  const email = data.email.trim().toLowerCase();
+
   const existingUser = await prisma.user.findUnique({
-    where: {
-      email: data.email,
-    },
+    where: { email },
   });
 
   if (existingUser) {
@@ -29,32 +43,39 @@ export async function registerUser(data: RegisterData) {
 
   const user = await prisma.user.create({
     data: {
-      fullName: data.fullName,
-      email: data.email,
+      fullName: data.fullName.trim(),
+      email,
       password: hashedPassword,
+      emailVerified: false,
     },
-    select: {
-      id: true,
-      fullName: true,
-      email: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: userSelect,
   });
 
   await createDefaultCategoriesForUser(user.id);
 
-  return user;
+  let emailSent = true;
+  try {
+    await issueEmailVerification({
+      userId: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      apiBaseUrl,
+    });
+  } catch {
+    emailSent = false;
+  }
+
+  return { ...user, emailSent };
 }
 
 export async function loginUser(data: LoginData) {
+  const email = data.email.trim().toLowerCase();
+
   const user = await prisma.user.findUnique({
-    where: {
-      email: data.email,
-    },
+    where: { email },
   });
 
-  if (!user) {
+  if (!user || !user.password) {
     throw new Error("Invalid email or password");
   }
 
@@ -64,10 +85,14 @@ export async function loginUser(data: LoginData) {
     throw new Error("Invalid email or password");
   }
 
-  const { password: _password, ...safeUser } = user;
+  if (!user.emailVerified && !user.googleId) {
+    throw new Error("Please verify your email");
+  }
+
+  const { password: _password, googleId: _googleId, ...safeUser } = user;
   const token = generateToken(user.id);
   return {
-  user: safeUser,
-  token,
-};
+    user: safeUser,
+    token,
+  };
 }

@@ -1,23 +1,52 @@
+import type { LucideIcon } from "lucide-react";
+
 type SummaryCardProps = {
   title: string;
   value: string;
-  valueClassName?: string;
+  icon: LucideIcon;
+  tone?: "default" | "success" | "danger" | "primary";
+};
+
+const toneClasses = {
+  default: {
+    icon: "bg-primary-muted text-primary",
+    value: "text-fg",
+  },
+  success: {
+    icon: "bg-success-muted text-success",
+    value: "text-success",
+  },
+  danger: {
+    icon: "bg-danger-muted text-danger",
+    value: "text-danger",
+  },
+  primary: {
+    icon: "bg-primary-muted text-primary",
+    value: "text-primary",
+  },
 };
 
 function SummaryCard({
   title,
   value,
-  valueClassName = "text-fg",
+  icon: Icon,
+  tone = "default",
 }: SummaryCardProps) {
-  return (
-    <article className="flex h-full flex-col justify-between rounded-2xl border border-border bg-surface p-5 shadow-card sm:p-6">
-      <p className="text-start text-sm font-medium text-fg-muted">{title}</p>
+  const classes = toneClasses[tone];
 
-      <h3
-        className={`mt-3 text-start text-2xl font-bold tracking-tight tabular-nums ${valueClassName}`}
-      >
-        {value}
-      </h3>
+  return (
+    <article className="ui-card ui-card-hover flex h-full items-start gap-4 p-5 sm:p-6">
+      <span className={`grid size-11 shrink-0 place-items-center rounded-2xl ${classes.icon}`}>
+        <Icon className="size-5" aria-hidden />
+      </span>
+      <div className="min-w-0 text-start">
+        <p className="text-sm font-medium text-fg-muted">{title}</p>
+        <h3
+          className={`mt-1.5 truncate text-2xl font-bold tracking-tight tabular-nums ${classes.value}`}
+        >
+          {value}
+        </h3>
+      </div>
     </article>
   );
 }

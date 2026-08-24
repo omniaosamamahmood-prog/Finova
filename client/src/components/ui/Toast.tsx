@@ -41,11 +41,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto w-full max-w-md rounded-xl border px-4 py-3 text-sm shadow-card ${
+            className={`pointer-events-auto w-full max-w-md rounded-xl border px-4 py-3 text-sm font-medium shadow-card ${
               toast.tone === "success"
-                ? "border-success/30 bg-surface text-success"
+                ? "border-success/25 bg-success-muted text-success"
                 : toast.tone === "error"
-                  ? "border-danger/30 bg-surface text-danger"
+                  ? "border-danger/25 bg-danger-muted text-danger"
                   : "border-border bg-surface text-fg"
             }`}
             role="status"

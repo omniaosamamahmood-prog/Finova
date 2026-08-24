@@ -24,6 +24,8 @@ export function useCreateTransaction() {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: queryKeys.transactions }),
         queryClient.invalidateQueries({ queryKey: queryKeys.dashboard }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.reports }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.insights }),
       ]);
     },
   });
@@ -44,6 +46,8 @@ export function useUpdateTransaction() {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: queryKeys.transactions }),
         queryClient.invalidateQueries({ queryKey: queryKeys.dashboard }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.reports }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.insights }),
       ]);
     },
   });
@@ -74,6 +78,8 @@ export function useDeleteTransaction() {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: queryKeys.transactions }),
         queryClient.invalidateQueries({ queryKey: queryKeys.dashboard }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.reports }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.insights }),
       ]);
     },
   });

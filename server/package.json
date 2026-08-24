@@ -9,18 +9,25 @@
     "prisma:generate": "prisma generate",
     "build": "tsc",
     "start": "node dist/server.js",
-    "backfill:categories": "tsx src/scripts/backfillDefaultCategories.ts"
+    "backfill:categories": "tsx src/scripts/backfillDefaultCategories.ts",
+    "recurring:process": "tsx src/scripts/processRecurring.ts",
+    "test": "tsx --test src/utils/recurrence.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^2.18.0",
     "@prisma/client": "^6.19.3",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "google-auth-library": "^11.0.2",
     "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^9.0.5",
     "prisma": "^6.19.3",
     "zod": "^4.4.3"
   },
@@ -29,7 +36,10 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.2.0",
     "@types/node": "^24.3.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^8.0.1",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }

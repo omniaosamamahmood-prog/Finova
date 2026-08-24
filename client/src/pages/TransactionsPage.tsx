@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Plus, Search } from "lucide-react";
+import { Plus, Receipt, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import AppLayout from "../components/layout/AppLayout";
 import TransactionCard, {
@@ -10,6 +10,10 @@ import DeleteTransactionDialog from "../components/transactions/DeleteTransactio
 import TransactionSkeleton from "../components/transactions/TransactionSkeleton";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
+import PageHeader from "../components/ui/PageHeader";
+import EmptyState from "../components/ui/EmptyState";
+import ErrorBanner from "../components/ui/ErrorBanner";
+import FilterChip from "../components/ui/FilterChip";
 import { useToast } from "../components/ui/Toast";
 import { useCategories } from "../hooks/useCategories";
 import {
@@ -135,51 +139,41 @@ function TransactionsPage() {
 
   return (
     <AppLayout>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="text-start">
-          <h2 className="text-2xl font-bold tracking-tight text-fg sm:text-3xl">
-            {t("navigation.transactions")}
-          </h2>
-          <p className="mt-1 text-sm text-fg-muted sm:text-base">
-            {t("transactions.subtitle")}
-          </p>
-        </div>
-
-        <Button
-          type="button"
-          className="w-full sm:w-auto sm:px-5"
-          onClick={openCreate}
-        >
-          <Plus className="size-4" aria-hidden />
-          {t("transactions.add")}
-        </Button>
-      </div>
+      <PageHeader
+        title={t("navigation.transactions")}
+        subtitle={t("transactions.subtitle")}
+        action={
+          <Button
+            type="button"
+            className="w-full sm:w-auto sm:px-5"
+            onClick={openCreate}
+          >
+            <Plus className="size-4" aria-hidden />
+            {t("transactions.add")}
+          </Button>
+        }
+      />
 
       <div className="mt-6 flex flex-col gap-3 lg:flex-row lg:items-center">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute top-1/2 start-3 size-4 -translate-y-1/2 text-fg-subtle" />
+          <Search className="pointer-events-none absolute top-1/2 start-3.5 size-4 -translate-y-1/2 text-fg-subtle" />
           <Input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder={t("transactions.searchPlaceholder")}
-            className="ps-10"
+            className="ps-11"
           />
         </div>
 
         <div className="flex flex-wrap gap-2">
           {filters.map((filter) => (
-            <button
+            <FilterChip
               key={filter.key}
-              type="button"
+              active={typeFilter === filter.key}
               onClick={() => setTypeFilter(filter.key)}
-              className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-                typeFilter === filter.key
-                  ? "bg-primary-muted text-primary"
-                  : "border border-border bg-surface text-fg-muted hover:bg-surface-hover hover:text-fg"
-              }`}
             >
               {filter.label}
-            </button>
+            </FilterChip>
           ))}
         </div>
       </div>
@@ -188,39 +182,25 @@ function TransactionsPage() {
         {isLoading && <TransactionSkeleton />}
 
         {isError && (
-          <div className="rounded-2xl border border-danger/30 bg-danger-muted p-6 text-start">
-            <p className="font-medium text-danger">
-              {t(getErrorMessage(error), {
-                defaultValue: getErrorMessage(error),
-              })}
-            </p>
-            <Button
-              type="button"
-              variant="secondary"
-              className="mt-4 w-auto px-4"
-              text={t("common.retry")}
-              onClick={() => void refetch()}
-            />
-          </div>
+          <ErrorBanner error={error} onRetry={() => void refetch()} />
         )}
 
         {!isLoading && !isError && filteredTransactions.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-border bg-surface/50 px-6 py-16 text-center">
-            <p className="text-lg font-semibold text-fg">
-              {t("transactions.emptyTitle")}
-            </p>
-            <p className="mt-2 text-sm text-fg-muted">
-              {t("transactions.emptyDescription")}
-            </p>
-            <Button
-              type="button"
-              className="mx-auto mt-6 w-auto px-5"
-              onClick={openCreate}
-            >
-              <Plus className="size-4" aria-hidden />
-              {t("transactions.add")}
-            </Button>
-          </div>
+          <EmptyState
+            icon={Receipt}
+            title={t("transactions.emptyTitle")}
+            description={t("transactions.emptyDescription")}
+            action={
+              <Button
+                type="button"
+                className="w-auto px-5"
+                onClick={openCreate}
+              >
+                <Plus className="size-4" aria-hidden />
+                {t("transactions.add")}
+              </Button>
+            }
+          />
         )}
 
         {!isLoading && !isError && filteredTransactions.length > 0 && (

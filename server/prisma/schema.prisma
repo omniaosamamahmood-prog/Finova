@@ -13,31 +13,77 @@ enum TransactionType {
   EXPENSE
 }
 
+enum RecurrenceFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum FeedbackType {
+  GENERAL
+  BUG
+  FEATURE
+  UI_UX
+  PERFORMANCE
+}
+
 model User {
-  id           String        @id @default(cuid())
-  fullName     String
-  email        String        @unique
-  password     String
+  id                    String                   @id @default(cuid())
+  fullName              String
+  email                 String                   @unique
+  password              String?
+  googleId              String?                  @unique
+  avatarUrl             String?
+  emailVerified         Boolean                  @default(false)
+  budgets               Budget[]
+  transactions          Transaction[]
+  categories            Category[]
+  goals                 Goal[]
+  recurringTransactions RecurringTransaction[]
+  createdAt             DateTime                 @default(now())
+  updatedAt             DateTime                 @updatedAt
+  accounts              Account[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens   PasswordResetToken[]
+  feedback              Feedback[]
+}
 
-  transactions Transaction[]
-  categories   Category[]
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 model Category {
-  id           String          @id @default(cuid())
-  name         String
-  type         TransactionType
+  id                    String                 @id @default(cuid())
+  name                  String
+  type                  TransactionType
 
-  userId       String
-  user         User            @relation(fields: [userId], references: [id])
+  userId                String
+  user                  User                   @relation(fields: [userId], references: [id])
   @@unique([userId, name, type])
-  transactions Transaction[]
-
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
+  transactions          Transaction[]
+  budgets               Budget[]
+  recurringTransactions RecurringTransaction[]
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
 }
 
 model Transaction {
@@ -52,7 +98,110 @@ model Transaction {
 
   userId          String
   user            User            @relation(fields: [userId], references: [id])
+  accountId       String?
+  account         Account?        @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  /// Set only on transactions generated from a recurring schedule.
+  recurringTransactionId String?
+  recurringTransaction   RecurringTransaction? @relation(fields: [recurringTransactionId], references: [id], onDelete: SetNull)
+
+  /// UTC calendar date of the scheduled occurrence this row represents.
+  occurrenceDate DateTime?
+
+  /// Idempotency key: `{recurringTransactionId}:{YYYY-MM-DD}` (UTC).
+  /// Manual transactions leave this null; PostgreSQL allows multiple nulls.
+  occurrenceKey  String?   @unique
 
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
+}
+
+model Budget {
+  id         String   @id @default(cuid())
+  amount     Float
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, categoryId])
+}
+
+model Goal {
+  id            String   @id @default(cuid())
+  name          String
+  targetAmount  Float
+  currentAmount Float    @default(0)
+  targetDate    DateTime?
+
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Account {
+  id          String   @id @default(cuid())
+
+  name        String
+
+  balance     Float    @default(0)
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+
+  transactions Transaction[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model RecurringTransaction {
+  id          String              @id @default(cuid())
+  title       String
+  amount      Float
+  type        TransactionType
+  frequency   RecurrenceFrequency
+
+  startDate   DateTime
+  nextRunAt   DateTime
+
+  isActive    Boolean             @default(true)
+
+  categoryId  String
+  category    Category            @relation(fields: [categoryId], references: [id])
+
+  userId      String
+  user        User                @relation(fields: [userId], references: [id])
+
+  generatedTransactions Transaction[]
+
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@index([isActive, nextRunAt])
+  @@index([userId, nextRunAt])
+}
+
+model Feedback {
+  id             String       @id @default(cuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating         Int
+  type           FeedbackType
+  message        String
+  featureRequest String?
+  page           String?
+  browser        String?
+  createdAt      DateTime     @default(now())
+
+  @@index([userId, createdAt])
+  @@index([createdAt])
+  @@index([type])
 }

@@ -67,7 +67,16 @@ export const JsonNull = runtime.objectEnumValues.instances.JsonNull;
  */
 export const AnyNull = runtime.objectEnumValues.instances.AnyNull;
 export const ModelName = {
-    User: 'User'
+    User: 'User',
+    EmailVerificationToken: 'EmailVerificationToken',
+    PasswordResetToken: 'PasswordResetToken',
+    Category: 'Category',
+    Transaction: 'Transaction',
+    Budget: 'Budget',
+    Goal: 'Goal',
+    Account: 'Account',
+    RecurringTransaction: 'RecurringTransaction',
+    Feedback: 'Feedback'
 };
 /**
  * Enums
@@ -83,8 +92,99 @@ export const UserScalarFieldEnum = {
     fullName: 'fullName',
     email: 'email',
     password: 'password',
+    googleId: 'googleId',
+    avatarUrl: 'avatarUrl',
+    emailVerified: 'emailVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const EmailVerificationTokenScalarFieldEnum = {
+    id: 'id',
+    token: 'token',
+    userId: 'userId',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+};
+export const PasswordResetTokenScalarFieldEnum = {
+    id: 'id',
+    token: 'token',
+    userId: 'userId',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+};
+export const CategoryScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const TransactionScalarFieldEnum = {
+    id: 'id',
+    title: 'title',
+    amount: 'amount',
+    type: 'type',
+    transactionDate: 'transactionDate',
+    categoryId: 'categoryId',
+    userId: 'userId',
+    accountId: 'accountId',
+    recurringTransactionId: 'recurringTransactionId',
+    occurrenceDate: 'occurrenceDate',
+    occurrenceKey: 'occurrenceKey',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const BudgetScalarFieldEnum = {
+    id: 'id',
+    amount: 'amount',
+    userId: 'userId',
+    categoryId: 'categoryId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const GoalScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    targetAmount: 'targetAmount',
+    currentAmount: 'currentAmount',
+    targetDate: 'targetDate',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const AccountScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    balance: 'balance',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const RecurringTransactionScalarFieldEnum = {
+    id: 'id',
+    title: 'title',
+    amount: 'amount',
+    type: 'type',
+    frequency: 'frequency',
+    startDate: 'startDate',
+    nextRunAt: 'nextRunAt',
+    isActive: 'isActive',
+    categoryId: 'categoryId',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const FeedbackScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    rating: 'rating',
+    type: 'type',
+    message: 'message',
+    featureRequest: 'featureRequest',
+    page: 'page',
+    browser: 'browser',
+    createdAt: 'createdAt'
 };
 export const SortOrder = {
     asc: 'asc',
@@ -93,6 +193,10 @@ export const SortOrder = {
 export const QueryMode = {
     default: 'default',
     insensitive: 'insensitive'
+};
+export const NullsOrder = {
+    first: 'first',
+    last: 'last'
 };
 export const defineExtension = runtime.Extensions.defineExtension;
 //# sourceMappingURL=prismaNamespace.js.map

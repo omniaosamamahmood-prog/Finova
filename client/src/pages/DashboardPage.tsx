@@ -1,43 +1,54 @@
+import { Wallet, TrendingUp, TrendingDown, Receipt, Sparkles, Repeat } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import AppLayout from "../components/layout/AppLayout";
 import Header from "../components/dashboard/Header";
 import SummaryCard from "../components/dashboard/SummaryCard";
-import { useDashboardStats } from "../hooks/useDashboard";
+import BudgetProgressWidget from "../components/dashboard/BudgetProgressWidget";
+import GoalProgressWidget from "../components/dashboard/GoalProgressWidget";
+import FinancialInsights from "../components/dashboard/FinancialInsights";
+import UpcomingRecurringWidget from "../components/dashboard/UpcomingRecurringWidget";
+import GettingStartedCard from "../components/dashboard/GettingStartedCard";
+import DashboardEmptyCard from "../components/dashboard/DashboardEmptyCard";
+import ErrorBanner from "../components/ui/ErrorBanner";
+import { useGettingStarted } from "../hooks/useGettingStarted";
+import { useProfile } from "../hooks/useProfile";
 import { formatCurrency } from "../utils/format";
-import { getErrorMessage } from "../utils/errorMessage";
-import Button from "../components/ui/Button";
+import { getStoredUser } from "../utils/storedUser";
 
 function DashboardPage() {
   const { t, i18n } = useTranslation();
-  const { data, isLoading, isError, error, refetch } = useDashboardStats();
+  const {
+    stats,
+    isLoading,
+    isError,
+    error,
+    refetch,
+    hasTransactions,
+    hasBudgets,
+    hasGoals,
+    showOnboarding,
+  } = useGettingStarted();
+  const { data: profile } = useProfile();
 
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const userName = user.fullName || "User";
-
-  const stats = data ?? {
-    totalBalance: 0,
-    totalIncome: 0,
-    totalExpense: 0,
-    transactionCount: 0,
-  };
+  const userName =
+    profile?.fullName || getStoredUser().fullName || t("common.appName");
 
   return (
     <AppLayout>
       <Header userName={userName} />
 
       {isError && (
-        <div className="mt-6 rounded-2xl border border-danger/30 bg-danger-muted p-4 text-start">
-          <p className="text-sm text-danger">
-            {t(getErrorMessage(error), {
-              defaultValue: getErrorMessage(error),
-            })}
-          </p>
-          <Button
-            type="button"
-            variant="secondary"
-            className="mt-3 w-auto px-4"
-            text={t("common.retry")}
-            onClick={() => void refetch()}
+        <div className="mt-6">
+          <ErrorBanner error={error} onRetry={() => void refetch()} />
+        </div>
+      )}
+
+      {showOnboarding && (
+        <div className="mt-6">
+          <GettingStartedCard
+            hasTransactions={hasTransactions}
+            hasBudgets={hasBudgets}
+            hasGoals={hasGoals}
           />
         </div>
       )}
@@ -58,37 +69,66 @@ function DashboardPage() {
             <SummaryCard
               title={t("dashboard.totalBalance")}
               value={formatCurrency(stats.totalBalance, i18n.language)}
+              icon={Wallet}
             />
             <SummaryCard
               title={t("dashboard.income")}
               value={formatCurrency(stats.totalIncome, i18n.language)}
-              valueClassName="text-success"
+              icon={TrendingUp}
+              tone="success"
             />
             <SummaryCard
               title={t("dashboard.expenses")}
               value={formatCurrency(stats.totalExpense, i18n.language)}
-              valueClassName="text-danger"
+              icon={TrendingDown}
+              tone="danger"
             />
             <SummaryCard
               title={t("dashboard.transactions")}
               value={`${stats.transactionCount}`}
-              valueClassName="text-primary"
+              icon={Receipt}
+              tone="primary"
             />
           </>
         )}
       </section>
 
-      <section
-        aria-hidden="true"
-        className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-12"
-      >
+      {showOnboarding ? (
+        <div className="mt-8 grid min-w-0 gap-5 lg:grid-cols-2">
+          <DashboardEmptyCard
+            heading={t("insights.sectionTitle")}
+            headingIcon={Sparkles}
+            title={t("dashboard.onboarding.noTransactionsTitle")}
+            description={t("dashboard.onboarding.noTransactionsDescription")}
+            actionTo="/transactions"
+            actionLabel={t("dashboard.onboarding.addTransaction")}
+          />
+          <DashboardEmptyCard
+            heading={t("dashboard.upcomingRecurring")}
+            headingIcon={Repeat}
+            title={t("dashboard.onboarding.recurringEmptyTitle")}
+            description={t("dashboard.onboarding.recurringEmptyDescription")}
+            actionTo="/recurring-transactions"
+            actionLabel={t("dashboard.onboarding.addRecurring")}
+          />
+        </div>
+      ) : (
+        <>
+          <div className="mt-8 min-w-0">
+            <FinancialInsights />
+          </div>
+          <div className="mt-8 min-w-0">
+            <UpcomingRecurringWidget />
+          </div>
+        </>
+      )}
+
+      <section className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-12">
         <div className="flex flex-col gap-5 lg:col-span-8">
-          {/* Spending Chart */}
-          {/* Budget Progress */}
+          <BudgetProgressWidget />
         </div>
         <div className="flex flex-col gap-5 lg:col-span-4">
-          {/* Recent Transactions */}
-          {/* Recent Activity */}
+          <GoalProgressWidget />
         </div>
       </section>
     </AppLayout>
