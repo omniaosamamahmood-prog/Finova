@@ -186,82 +186,90 @@ function WelcomePage() {
               {t("welcome.description")}
             </p>
 
-            <p
-              className="enter enter-from-end mt-8 text-sm font-semibold text-fg"
+            <div
+              className="enter enter-from-end mt-6"
               style={{ "--enter-delay": "290ms" } as CSSProperties}
             >
-              {t("welcome.chooseLanguage")}
-            </p>
-
-            <div
-              className="enter enter-from-end mt-3 grid gap-3 sm:grid-cols-2"
-              style={{ "--enter-delay": "350ms" } as CSSProperties}
-            >
-              <button
-                type="button"
-                onClick={() => selectLanguage("en")}
-                aria-pressed={isEnSelected}
-                className={`flex items-center gap-3 rounded-2xl border bg-surface px-4 py-3.5 text-start transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  isEnSelected
-                    ? "border-primary ring-2 ring-primary/20"
-                    : "border-border hover:border-primary/40 hover:bg-surface-hover"
-                }`}
+              <p
+                id="welcome-language-label"
+                className="text-xs font-medium tracking-wide text-fg-subtle"
               >
-                <span
-                  className={`grid size-8 place-items-center rounded-full text-xs font-bold ${
+                {t("welcome.chooseLanguage")}
+              </p>
+
+              <div
+                role="group"
+                aria-labelledby="welcome-language-label"
+                className="mt-2 inline-flex max-w-full items-center gap-1 rounded-full border border-border bg-surface/90 p-1 shadow-sm backdrop-blur-sm"
+              >
+                <button
+                  type="button"
+                  onClick={() => selectLanguage("en")}
+                  aria-pressed={isEnSelected}
+                  aria-label={t("language.english")}
+                  className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1.5 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
                     isEnSelected
-                      ? "bg-primary text-white"
-                      : "bg-surface-hover text-fg-muted"
+                      ? "bg-primary-muted text-primary"
+                      : "text-fg-muted hover:bg-surface-hover hover:text-fg"
                   }`}
                 >
-                  EN
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-semibold text-fg">
-                    {t("language.english")}
+                  <span
+                    className="grid size-6 shrink-0 place-items-center overflow-hidden rounded-full bg-bg text-[0.95rem] leading-none shadow-inner ring-1 ring-border/60"
+                    aria-hidden
+                  >
+                    🇺🇸
                   </span>
-                  <span className="block text-xs text-fg-subtle">
-                    {isEnSelected ? t("welcome.selected") : "LTR"}
+                  <span className="whitespace-nowrap">{t("language.english")}</span>
+                  <span
+                    className={`grid size-4 shrink-0 place-items-center transition ${
+                      isEnSelected ? "opacity-100" : "opacity-0"
+                    }`}
+                    aria-hidden
+                  >
+                    <Check className="size-3.5" strokeWidth={2.5} />
                   </span>
-                </span>
-                {isEnSelected && <Check className="size-4 text-primary" aria-hidden />}
-              </button>
+                  {isEnSelected && (
+                    <span className="sr-only">{t("welcome.selected")}</span>
+                  )}
+                </button>
 
-              <button
-                type="button"
-                onClick={() => selectLanguage("ar")}
-                aria-pressed={isArSelected}
-                dir="rtl"
-                className={`flex items-center gap-3 rounded-2xl border bg-surface px-4 py-3.5 text-start transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  isArSelected
-                    ? "border-primary ring-2 ring-primary/20"
-                    : "border-border hover:border-primary/40 hover:bg-surface-hover"
-                }`}
-              >
-                <span
-                  className={`grid size-8 place-items-center rounded-full text-xs font-bold ${
+                <button
+                  type="button"
+                  onClick={() => selectLanguage("ar")}
+                  aria-pressed={isArSelected}
+                  aria-label={t("language.arabic")}
+                  lang="ar"
+                  className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1.5 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
                     isArSelected
-                      ? "bg-primary text-white"
-                      : "bg-surface-hover text-fg-muted"
+                      ? "bg-primary-muted text-primary"
+                      : "text-fg-muted hover:bg-surface-hover hover:text-fg"
                   }`}
                 >
-                  ع
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-semibold text-fg">
-                    {t("language.arabic")}
+                  <span
+                    className="grid size-6 shrink-0 place-items-center overflow-hidden rounded-full bg-bg text-[0.95rem] leading-none shadow-inner ring-1 ring-border/60"
+                    aria-hidden
+                  >
+                    🇪🇬
                   </span>
-                  <span className="block text-xs text-fg-subtle">
-                    {isArSelected ? t("welcome.selected") : "RTL"}
+                  <span className="whitespace-nowrap">{t("language.arabic")}</span>
+                  <span
+                    className={`grid size-4 shrink-0 place-items-center transition ${
+                      isArSelected ? "opacity-100" : "opacity-0"
+                    }`}
+                    aria-hidden
+                  >
+                    <Check className="size-3.5" strokeWidth={2.5} />
                   </span>
-                </span>
-                {isArSelected && <Check className="size-4 text-primary" aria-hidden />}
-              </button>
+                  {isArSelected && (
+                    <span className="sr-only">{t("welcome.selected")}</span>
+                  )}
+                </button>
+              </div>
             </div>
 
             <div
-              className="enter enter-from-end mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
-              style={{ "--enter-delay": "420ms" } as CSSProperties}
+              className="enter enter-from-end mt-5 flex flex-col gap-3 sm:flex-row sm:items-center"
+              style={{ "--enter-delay": "360ms" } as CSSProperties}
             >
               <Button
                 type="button"

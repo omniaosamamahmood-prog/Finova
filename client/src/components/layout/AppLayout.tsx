@@ -60,56 +60,70 @@ function AppLayout({ children }: AppLayoutProps) {
         : "text-fg-muted hover:bg-surface hover:text-fg"
     }`;
 
+  const mobileNavClass = ({ isActive }: { isActive: boolean }) =>
+    `relative inline-flex shrink-0 snap-start flex-col items-center justify-center gap-1 rounded-xl px-2.5 py-1.5 text-[11px] font-medium leading-none tracking-wide transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+      isActive
+        ? "bg-primary-muted text-primary"
+        : "text-fg-muted hover:bg-surface hover:text-fg"
+    }`;
+
   return (
     <div className="min-h-screen bg-bg md:flex">
-      <header className="sticky top-0 z-20 border-b border-border bg-bg-elevated/90 px-4 py-3 backdrop-blur md:hidden">
-        <div className="flex items-center justify-between gap-3">
+      <header className="sticky top-0 z-20 bg-bg-elevated/95 px-3 pt-2 backdrop-blur md:hidden">
+        <div className="flex h-9 items-center justify-between gap-2">
           <BrandMark compact />
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
+          <div className="flex items-center gap-1.5">
+            <ThemeToggle className="!rounded-lg !px-2 !py-1.5" />
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded-lg border border-danger/30 bg-danger-muted px-3 py-1.5 text-sm font-medium text-danger transition hover:bg-danger/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger"
+              aria-label={t("navigation.logout")}
+              title={t("navigation.logout")}
+              className="inline-flex size-8 items-center justify-center rounded-lg border border-danger/30 bg-danger-muted text-danger transition hover:bg-danger/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger"
             >
-              {t("navigation.logout")}
+              <LogOut className="size-3.5" aria-hidden />
             </button>
           </div>
         </div>
 
         <nav
-          className="-mx-4 mt-3 flex gap-1 overflow-x-auto px-4 pb-1"
+          className="nav-scroll -mx-3 mt-1.5 flex snap-x snap-mandatory gap-1 overflow-x-auto px-3 pb-2 pt-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           aria-label={t("common.mainNav")}
         >
           {navItems.map((item) => (
-            <NavLink
-              key={item.key}
-              to={item.to}
-              className={({ isActive }) =>
-                `inline-flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "text-fg-muted hover:bg-surface hover:text-fg"
-                }`
-              }
-            >
-              <item.icon className="size-4" aria-hidden />
-              {t(`navigation.${item.key}`)}
+            <NavLink key={item.key} to={item.to} className={mobileNavClass}>
+              {({ isActive }) => (
+                <>
+                  <item.icon className="size-4 shrink-0" aria-hidden />
+                  <span className="max-w-[4.5rem] truncate">
+                    {t(`navigation.${item.key}`)}
+                  </span>
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-2.5 -bottom-0.5 h-0.5 rounded-full bg-primary"
+                    />
+                  )}
+                </>
+              )}
             </NavLink>
           ))}
           {isAdmin && (
-            <NavLink
-              to="/admin"
-              className={({ isActive }) =>
-                `inline-flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "text-fg-muted hover:bg-surface hover:text-fg"
-                }`
-              }
-            >
-              <ShieldCheck className="size-4" aria-hidden />
-              {t("navigation.adminPlatform")}
+            <NavLink to="/admin" className={mobileNavClass}>
+              {({ isActive }) => (
+                <>
+                  <ShieldCheck className="size-4 shrink-0" aria-hidden />
+                  <span className="max-w-[4.5rem] truncate">
+                    {t("navigation.adminPlatform")}
+                  </span>
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-2.5 -bottom-0.5 h-0.5 rounded-full bg-primary"
+                    />
+                  )}
+                </>
+              )}
             </NavLink>
           )}
         </nav>
@@ -188,7 +202,7 @@ function AppLayout({ children }: AppLayoutProps) {
 
       <main className="relative min-w-0 flex-1">
         <div className="pointer-events-none absolute inset-0 app-glow-soft" />
-        <div className="relative mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="relative mx-auto max-w-7xl px-4 py-4 sm:px-6 md:py-6 lg:px-8 lg:py-8">
           {children}
         </div>
       </main>

@@ -18,7 +18,7 @@ function BudgetProgressWidget() {
     .slice(0, 4);
 
   return (
-    <section className="ui-card h-full p-5 sm:p-6">
+    <section className="ui-card h-full p-4 sm:p-6">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <span className="grid size-9 place-items-center rounded-xl bg-primary-muted text-primary">

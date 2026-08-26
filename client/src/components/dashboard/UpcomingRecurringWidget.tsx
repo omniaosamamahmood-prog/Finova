@@ -17,7 +17,7 @@ function UpcomingRecurringWidget() {
     .slice(0, 3);
 
   return (
-    <section className="ui-card p-5 sm:p-6">
+    <section className="ui-card p-4 sm:p-6">
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
           <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary-muted text-primary">

@@ -10,13 +10,13 @@ function Header({ userName }: HeaderProps) {
 
   return (
     <header className="text-start">
-      <p className="text-sm font-medium text-fg-subtle">
+      <p className="text-xs font-medium text-fg-subtle sm:text-sm">
         {formatLongDate(new Date(), i18n.language)}
       </p>
-      <h2 className="mt-1 text-2xl font-bold tracking-tight text-fg sm:text-3xl">
+      <h2 className="mt-0.5 text-xl font-bold tracking-tight text-fg sm:mt-1 sm:text-3xl">
         {t("dashboard.welcome", { name: userName })}
       </h2>
-      <p className="mt-1.5 text-sm text-fg-muted sm:text-base">
+      <p className="mt-1 hidden text-sm text-fg-muted md:mt-1.5 md:block md:text-base">
         {t("dashboard.overview")}
       </p>
     </header>

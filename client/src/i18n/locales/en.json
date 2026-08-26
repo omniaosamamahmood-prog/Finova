@@ -156,6 +156,7 @@
     "sectionTitle": "Financial Insights",
     "sectionLabel": "Financial insights",
     "empty": "No financial insights available.",
+    "dismiss": "Dismiss insight",
     "highestSpending": {
       "title": "Highest spending category",
       "message": "{{category}} is your highest spending category this month."
@@ -462,7 +463,9 @@
     "preferences": {
       "subtitle": "Choose how Finova looks and feels for you.",
       "language": "Language",
-      "languageHint": "The app updates immediately. Your choice is saved on this device."
+      "languageHint": "The app updates immediately. Your choice is saved on this device.",
+      "feedback": "Feedback",
+      "feedbackHint": "Share ideas, report issues, or tell us what to improve."
     },
     "validation": {
       "currentPassword": "Current password is required",

@@ -35,14 +35,16 @@ function SummaryCard({
   const classes = toneClasses[tone];
 
   return (
-    <article className="ui-card ui-card-hover flex h-full items-start gap-4 p-5 sm:p-6">
-      <span className={`grid size-11 shrink-0 place-items-center rounded-2xl ${classes.icon}`}>
-        <Icon className="size-5" aria-hidden />
+    <article className="ui-card ui-card-hover flex h-full items-start gap-3 p-4 sm:gap-4 sm:p-6">
+      <span
+        className={`grid size-10 shrink-0 place-items-center rounded-xl sm:size-11 sm:rounded-2xl ${classes.icon}`}
+      >
+        <Icon className="size-4 sm:size-5" aria-hidden />
       </span>
       <div className="min-w-0 text-start">
-        <p className="text-sm font-medium text-fg-muted">{title}</p>
+        <p className="text-xs font-medium text-fg-muted sm:text-sm">{title}</p>
         <h3
-          className={`mt-1.5 truncate text-2xl font-bold tracking-tight tabular-nums ${classes.value}`}
+          className={`mt-1 truncate text-xl font-bold tracking-tight tabular-nums sm:mt-1.5 sm:text-2xl ${classes.value}`}
         >
           {value}
         </h3>
