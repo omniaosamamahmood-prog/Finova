@@ -8,7 +8,8 @@
     "close": "Close",
     "retry": "Retry",
     "loading": "Loading...",
-    "mainNav": "Main navigation"
+    "mainNav": "Main navigation",
+    "moreNav": "More navigation items"
   },
   "auth": {
     "login": {

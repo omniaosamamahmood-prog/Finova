@@ -19,6 +19,7 @@ import BrandMark from "../BrandMark";
 import FinovaAIChat from "../ai/FinovaAIChat";
 import FeedbackButton from "../feedback/FeedbackButton";
 import Avatar from "../ui/Avatar";
+import MobileNavScroll from "./MobileNavScroll";
 import { useProfile } from "../../hooks/useProfile";
 import { useIsAdmin } from "../../hooks/useAdmin";
 import { getStoredUser } from "../../utils/storedUser";
@@ -86,10 +87,7 @@ function AppLayout({ children }: AppLayoutProps) {
           </div>
         </div>
 
-        <nav
-          className="nav-scroll -mx-3 mt-1.5 flex snap-x snap-mandatory gap-1 overflow-x-auto px-3 pb-2 pt-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-          aria-label={t("common.mainNav")}
-        >
+        <MobileNavScroll aria-label={t("common.mainNav")}>
           {navItems.map((item) => (
             <NavLink key={item.key} to={item.to} className={mobileNavClass}>
               {({ isActive }) => (
@@ -126,7 +124,7 @@ function AppLayout({ children }: AppLayoutProps) {
               )}
             </NavLink>
           )}
-        </nav>
+        </MobileNavScroll>
       </header>
 
       <aside className="sticky top-0 hidden h-screen w-72 shrink-0 flex-col border-e border-border bg-bg-elevated md:flex">
