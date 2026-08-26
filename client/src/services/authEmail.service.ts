@@ -5,7 +5,7 @@ import type { ApiErrorBody, ApiSuccess } from "../types/api";
 export type MessageResult = {
   message?: string;
 };
-
+//jj
 export type VerifyEmailResult = {
   status: "success" | "expired" | "failed";
   message?: string;
