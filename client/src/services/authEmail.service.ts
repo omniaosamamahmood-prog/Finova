@@ -10,7 +10,7 @@ export type VerifyEmailResult = {
   status: "success" | "expired" | "failed";
   message?: string;
 };
-
+//handle forgot password
 export async function forgotPassword(email: string): Promise<MessageResult> {
   const response = await api.post<ApiSuccess<null> & { message?: string }>(
     "/auth/forgot-password",
