@@ -102,18 +102,26 @@ function FinancialInsights() {
   const isMobile = useIsMobileLayout();
   const { data: insights = [], isLoading, isError, error, refetch } =
     useFinancialInsights();
-  const [dismissedIds, setDismissedIds] = useState<Set<string>>(() =>
-    readDismissedInsightIds(getStoredUser().id)
-  );
+  const [dismissedIds, setDismissedIds] = useState<Set<string>>(() => {
+    const userId = getStoredUser().id;
+    return userId ? readDismissedInsightIds(userId) : new Set();
+  });
 
   const visibleInsights: FinancialInsight[] = isMobile
-    ? insights.filter((insight) => !dismissedIds.has(getInsightId(insight)))
+    ? insights.filter((insight) => {
+        const insightId = getInsightId(insight);
+        return insightId.length > 0 && !dismissedIds.has(insightId);
+      })
     : insights;
 
   const handleDismiss = (insight: FinancialInsight) => {
     const userId = getStoredUser().id;
-    const id = getInsightId(insight);
-    dismissInsight(userId, id);
+    if (!userId) return;
+
+    const insightId = getInsightId(insight);
+    if (!insightId) return;
+
+    dismissInsight(userId, insightId);
     setDismissedIds(readDismissedInsightIds(userId));
   };
 

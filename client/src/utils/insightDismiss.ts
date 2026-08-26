@@ -12,7 +12,9 @@ export function getInsightId(insight: FinancialInsight): string {
   return `${insight.type}|${insight.title}|${insight.icon}|${params}`;
 }
 
-export function readDismissedInsightIds(userId: string): Set<string> {
+export function readDismissedInsightIds(
+  userId: string | undefined
+): Set<string> {
   if (!userId) return new Set();
   try {
     const raw = localStorage.getItem(storageKey(userId));
@@ -27,7 +29,10 @@ export function readDismissedInsightIds(userId: string): Set<string> {
   }
 }
 
-export function dismissInsight(userId: string, insightId: string) {
+export function dismissInsight(
+  userId: string | undefined,
+  insightId: string | undefined
+) {
   if (!userId || !insightId) return;
   const next = readDismissedInsightIds(userId);
   next.add(insightId);
