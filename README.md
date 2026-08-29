@@ -9,7 +9,7 @@
 <p align="center">
 
 <a href="https://finova-app-omniaa.vercel.app">
-<img src="https://img.shields.io/badge/Live%20Demo-Visit-EC4899?style=for-the-badge&logo=vercel&logoColor=white" />
+  <img src="https://img.shields.io/badge/Live%20Demo-Visit-EC4899?style=for-the-badge&logo=vercel&logoColor=white" />
 </a>
 
 <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
