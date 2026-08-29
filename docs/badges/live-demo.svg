@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="28" role="img" aria-label="Live Demo">
+  <title>Live Demo</title>
+  <rect width="118" height="28" rx="6" fill="#0F172A"/>
+  <rect width="72" height="28" rx="6" fill="#334155"/>
+  <rect x="72" width="46" height="28" fill="#EC4899"/>
+  <rect x="66" width="12" height="28" fill="#EC4899"/>
+  <text x="36" y="18" text-anchor="middle" font-family="Segoe UI, DejaVu Sans, sans-serif" font-size="11" font-weight="700" fill="#F8FAFC">Live Demo</text>
+  <text x="95" y="18" text-anchor="middle" font-family="Segoe UI, DejaVu Sans, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF">Visit</text>
+</svg>

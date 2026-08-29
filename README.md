@@ -1,146 +1,107 @@
-# 💸 Finova
+<div align="center">
 
-A modern personal finance web application that helps users track income, expenses, budgets, and savings goals through a clean, responsive, and bilingual experience.
+<img src="client/public/finova-mark.png" alt="Finova logo" width="88" />
 
-<p align="center">
+# Finova
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit-EC4899?style=for-the-badge&logo=vercel&logoColor=white)](https://finova-app-omniaa.vercel.app/)
+**Smart personal finance** — track income, expenses, budgets, and savings goals in a clean, responsive, bilingual app.
 
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+[![Live Demo](docs/badges/live-demo.svg)](https://finova-app-omniaa.vercel.app/)
 
-</p>
+<br />
 
----
+<img src="docs/badges/react.svg" alt="React" />
+<img src="docs/badges/typescript.svg" alt="TypeScript" />
+<img src="docs/badges/nodejs.svg" alt="Node.js" />
+<img src="docs/badges/express.svg" alt="Express" />
+<img src="docs/badges/postgresql.svg" alt="PostgreSQL" />
+<img src="docs/badges/prisma.svg" alt="Prisma" />
 
-# 🌐 Live Demo
+<br />
 
-🔗 https://finova-app-omniaa.vercel.app/
+**[Live Demo](https://finova-app-omniaa.vercel.app/)** · **[Report Bug](https://github.com/omniaosamamahmood-prog/Finova/issues)** · **[Request Feature](https://github.com/omniaosamamahmood-prog/Finova/issues)**
 
----
-
-# ✨ Features
-
-- 🔐 Email Authentication
-- 🔑 Google Authentication
-- 📧 Email Verification
-- 🔒 Forgot & Reset Password
-- 💰 Income & Expense Tracking
-- 📊 Budget Management
-- 🎯 Savings Goals
-- 🔄 Recurring Transactions
-- 📈 Financial Insights
-- 🌙 Light & Dark Mode
-- 🌍 Arabic & English Support (RTL/LTR)
-- 📱 Fully Responsive Design
+</div>
 
 ---
 
-# 🛠️ Tech Stack
+## Overview
 
-## Frontend
+Finova is a full-stack personal finance platform with authentication, budgeting, goals, recurring transactions, and financial insights. It supports **English** and **Arabic** (LTR/RTL), plus light and dark themes.
 
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS
-- React Router
-- React Hook Form
-- Zod
-- i18next
-
-## Backend
-
-- Node.js
-- Express.js
-- Prisma ORM
-- PostgreSQL
-- JWT Authentication
-- Google OAuth
-
-## Deployment
-
-- Vercel (Frontend)
-- Render (Backend)
+| | |
+| :--- | :--- |
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS |
+| **Backend** | Node.js, Express, Prisma, PostgreSQL |
+| **Auth** | Email + password, Google OAuth, verification & reset |
+| **Deploy** | Vercel (client) · Render (API) |
 
 ---
 
-# 📸 Screenshots
+## Features
 
-## Landing Page
-
-> Add screenshot here
-
----
-
-## Dashboard
-
-> Add screenshot here
-
----
-
-## Transactions
-
-> Add screenshot here
+- Email and Google authentication
+- Email verification, forgot password, and reset flow
+- Income and expense tracking with categories
+- Budget management and savings goals
+- Recurring transactions
+- Financial insights
+- Light / dark mode
+- Arabic & English (RTL / LTR)
+- Fully responsive layout
 
 ---
 
-## Mobile
+## Tech Stack
 
-> Add screenshot here
+### Frontend
+React 19 · TypeScript · Vite · Tailwind CSS · React Router · React Hook Form · Zod · i18next · TanStack Query
+
+### Backend
+Node.js · Express · Prisma ORM · PostgreSQL · JWT · Google OAuth · Email (verification / reset)
+
+### Deployment
+Vercel (frontend) · Render (backend)
 
 ---
 
-# 🚀 Getting Started
+## Getting Started
 
-Clone the repository
+### Clone
 
 ```bash
 git clone https://github.com/omniaosamamahmood-prog/Finova.git
-```
-
-Move into the project
-
-```bash
 cd Finova
 ```
 
-## Frontend
+### Frontend
 
 ```bash
 cd client
-
 npm install
-
 npm run dev
 ```
 
-## Backend
+### Backend
 
 ```bash
 cd server
-
 npm install
-
 npm run dev
 ```
 
 ---
 
-# 🔑 Environment Variables
+## Environment Variables
 
-## Client
+### Client (`client/.env`)
 
 ```env
 VITE_API_URL=
 VITE_GOOGLE_CLIENT_ID=
 ```
 
-## Server
+### Server (`server/.env`)
 
 ```env
 DATABASE_URL=
@@ -154,59 +115,55 @@ APP_URL=
 
 ---
 
-# 📂 Project Structure
+## Project Structure
 
-```
+```text
 Finova
-│
-├── client
-│   ├── src
-│   ├── public
-│   └── ...
-│
-├── server
-│   ├── src
-│   ├── prisma
-│   └── ...
-│
+├── client/          # React + Vite frontend
+│   ├── public/
+│   └── src/
+├── server/          # Express + Prisma API
+│   ├── prisma/
+│   └── src/
+├── docs/badges/     # README badge assets
 └── README.md
 ```
 
 ---
 
-# 📌 Roadmap
+## Roadmap
 
-- ✅ Authentication
-- ✅ Google Login
-- ✅ Email Verification
-- ✅ Password Reset
-- ✅ Transactions
-- ✅ Categories
-- ✅ Budgets
-- ✅ Savings Goals
-- ✅ Recurring Transactions
-- ✅ Financial Insights
-- ✅ Responsive Design
-- 🔄 Analytics Dashboard
-- 🔄 Export Reports
-- 🔄 Notifications
-- 🔄 AI Financial Assistant
+- [x] Authentication (email + Google)
+- [x] Email verification & password reset
+- [x] Transactions & categories
+- [x] Budgets & savings goals
+- [x] Recurring transactions
+- [x] Financial insights
+- [x] Responsive + bilingual UI
+- [x] AI financial assistant
+- [x] Export reports
+- [ ] Notifications
+- [ ] Deeper analytics dashboard
 
 ---
 
-# 🤝 Contributing
+## Contributing
 
-Contributions, issues, and feature requests are welcome.
+Contributions, issues, and feature requests are welcome. Open an issue or pull request on GitHub.
 
 ---
 
-# 👩‍💻 Author
+## Author
 
 **Omnia Osama Mahmoud**
 
-- GitHub: https://github.com/omniaosamamahmood-prog
-- LinkedIn: https://www.linkedin.com/in/omnia-osama-6754b3206
+- GitHub: [omniaosamamahmood-prog](https://github.com/omniaosamamahmood-prog)
+- LinkedIn: [omnia-osama-6754b3206](https://www.linkedin.com/in/omnia-osama-6754b3206)
 
 ---
 
-⭐ If you like this project, don't forget to leave a star!
+<div align="center">
+
+⭐ If Finova helps you, consider starring the repo.
+
+</div>
