@@ -7,22 +7,22 @@
 </p>
 
 <p align="center">
-  <a href="https://finova-app-omniaa.vercel.app">
-    <img src="https://img.shields.io/badge/Live-Demo-ec4899?style=for-the-badge" />
-  </a>
 
-  <img src="https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react"/>
+<a href="https://finova-app-omniaa.vercel.app">
+<img src="https://img.shields.io/badge/Live%20Demo-Visit-EC4899?style=for-the-badge&logo=vercel&logoColor=white" />
+</a>
 
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript"/>
+<img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
 
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js"/>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
 
-  <img src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
 
-  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma"/>
+<img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+
+<img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
 
 </p>
-
 ---
 
 # 🌐 Live Demo
