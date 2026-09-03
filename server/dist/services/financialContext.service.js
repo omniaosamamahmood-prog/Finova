@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { isUserPremium } from "../utils/plan.js";
 function roundMoney(value) {
     return Math.round(value * 100) / 100;
 }
@@ -23,6 +24,9 @@ function currentMonthRange(now = new Date()) {
 export async function buildFinancialContext(userId) {
     const { year, month, startDate, endDate } = currentMonthRange();
     const monthFilter = { gte: startDate, lt: endDate };
+    const isPremium = await isUserPremium(userId);
+    const emptyGoals = [];
+    const emptyRecurring = [];
     const [monthTransactions, allExpenseGroups, budgets, goals, activeRecurring, recurringDueThisMonth,] = await Promise.all([
         prisma.transaction.findMany({
             where: {
@@ -53,32 +57,38 @@ export async function buildFinancialContext(userId) {
                 },
             },
         }),
-        prisma.goal.findMany({
-            where: { userId },
-            select: {
-                name: true,
-                targetAmount: true,
-                currentAmount: true,
-                targetDate: true,
-            },
-        }),
-        prisma.recurringTransaction.count({
-            where: {
-                userId,
-                isActive: true,
-            },
-        }),
-        prisma.recurringTransaction.findMany({
-            where: {
-                userId,
-                isActive: true,
-                type: "EXPENSE",
-                nextRunAt: monthFilter,
-            },
-            select: {
-                amount: true,
-            },
-        }),
+        isPremium
+            ? prisma.goal.findMany({
+                where: { userId },
+                select: {
+                    name: true,
+                    targetAmount: true,
+                    currentAmount: true,
+                    targetDate: true,
+                },
+            })
+            : Promise.resolve(emptyGoals),
+        isPremium
+            ? prisma.recurringTransaction.count({
+                where: {
+                    userId,
+                    isActive: true,
+                },
+            })
+            : Promise.resolve(0),
+        isPremium
+            ? prisma.recurringTransaction.findMany({
+                where: {
+                    userId,
+                    isActive: true,
+                    type: "EXPENSE",
+                    nextRunAt: monthFilter,
+                },
+                select: {
+                    amount: true,
+                },
+            })
+            : Promise.resolve(emptyRecurring),
     ]);
     const totalIncome = roundMoney(monthTransactions
         .filter((transaction) => transaction.type === "INCOME")

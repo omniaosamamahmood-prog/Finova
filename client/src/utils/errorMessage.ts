@@ -50,6 +50,10 @@ const SERVER_MESSAGE_KEYS: Record<string, string> = {
   "Rating must be between 1 and 5": "feedback.validation.rating",
   "Feature request is too long": "feedback.validation.featureMax",
   "Access denied": "admin.accessDenied.title",
+  "This feature requires Premium": "premium.errors.required",
+  "Stripe is not configured": "premium.errors.notConfigured",
+  "Stripe test mode is required": "premium.errors.notConfigured",
+  "Failed to create Stripe Checkout session": "premium.errors.checkoutFailed",
 };
 
 export function getErrorMessage(
@@ -69,6 +73,12 @@ export function getErrorMessage(
     }
 
     if (status === 403) {
+      if (
+        data?.code === "PREMIUM_REQUIRED" ||
+        data?.message === "This feature requires Premium"
+      ) {
+        return "premium.errors.required";
+      }
       return "admin.accessDenied.title";
     }
 

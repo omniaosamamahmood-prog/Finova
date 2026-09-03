@@ -15,6 +15,7 @@ const profileSelect = {
   fullName: true,
   email: true,
   avatarUrl: true,
+  plan: true,
   createdAt: true,
 } as const;
 

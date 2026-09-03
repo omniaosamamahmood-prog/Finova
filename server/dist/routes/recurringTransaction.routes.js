@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { authenticate } from "../middlewares/auth.middleware.js";
+import { requirePremium } from "../middlewares/premium.middleware.js";
 import { createRecurringTransaction, deleteRecurringTransaction, getRecurringTransactionById, getRecurringTransactions, toggleRecurringTransaction, updateRecurringTransaction, } from "../controllers/recurringTransaction.controller.js";
 const router = Router();
-router.post("/", authenticate, createRecurringTransaction);
-router.get("/", authenticate, getRecurringTransactions);
-router.patch("/:id/status", authenticate, toggleRecurringTransaction);
-router.get("/:id", authenticate, getRecurringTransactionById);
-router.put("/:id", authenticate, updateRecurringTransaction);
-router.delete("/:id", authenticate, deleteRecurringTransaction);
+router.use(authenticate, requirePremium);
+router.post("/", createRecurringTransaction);
+router.get("/", getRecurringTransactions);
+router.patch("/:id/status", toggleRecurringTransaction);
+router.get("/:id", getRecurringTransactionById);
+router.put("/:id", updateRecurringTransaction);
+router.delete("/:id", deleteRecurringTransaction);
 export default router;
 //# sourceMappingURL=recurringTransaction.routes.js.map

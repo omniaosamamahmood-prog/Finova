@@ -12,6 +12,7 @@ import {
   Settings,
   LogOut,
   ShieldCheck,
+  Lock,
 } from "lucide-react";
 import ThemeToggle from "../ThemeToggle";
 import LanguageSwitcher from "../LanguageSwitcher";
@@ -22,7 +23,10 @@ import Avatar from "../ui/Avatar";
 import MobileNavScroll from "./MobileNavScroll";
 import { useProfile } from "../../hooks/useProfile";
 import { useIsAdmin } from "../../hooks/useAdmin";
+import { usePlan } from "../../contexts/PlanContext";
 import { getStoredUser } from "../../utils/storedUser";
+import type { PremiumFeature } from "../../utils/plan";
+import PlanBadge from "../premium/PlanBadge";
 
 type AppLayoutProps = {
   children: ReactNode;
@@ -33,8 +37,8 @@ const navItems = [
   { key: "transactions", to: "/transactions", icon: ArrowLeftRight },
   { key: "categories", to: "/categories", icon: Tags },
   { key: "budgets", to: "/budgets", icon: Wallet },
-  { key: "goals", to: "/goals", icon: Target },
-  { key: "recurring", to: "/recurring-transactions", icon: Repeat },
+  { key: "goals", to: "/goals", icon: Target, premium: true },
+  { key: "recurring", to: "/recurring-transactions", icon: Repeat, premium: true },
   { key: "reports", to: "/reports", icon: ChartPie },
   { key: "settings", to: "/settings", icon: Settings },
 ] as const;
@@ -45,6 +49,7 @@ function AppLayout({ children }: AppLayoutProps) {
   const storedUser = getStoredUser();
   const { data: profile } = useProfile();
   const isAdmin = useIsAdmin();
+  const { isPremium, openUpgradeModal } = usePlan();
   const user = profile ?? storedUser;
   const userName = user.fullName || t("common.appName");
 
@@ -52,6 +57,15 @@ function AppLayout({ children }: AppLayoutProps) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
+  };
+
+  const interceptPremiumNav = (
+    event: { preventDefault: () => void },
+    item: (typeof navItems)[number]
+  ) => {
+    if (!("premium" in item) || !item.premium || isPremium) return;
+    event.preventDefault();
+    openUpgradeModal(item.key as PremiumFeature);
   };
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -88,15 +102,30 @@ function AppLayout({ children }: AppLayoutProps) {
         </div>
 
         <MobileNavScroll aria-label={t("common.mainNav")}>
-          {navItems.map((item) => (
-            <NavLink key={item.key} to={item.to} className={mobileNavClass}>
+          {navItems.map((item) => {
+            const locked = "premium" in item && item.premium && !isPremium;
+            return (
+            <NavLink
+              key={item.key}
+              to={item.to}
+              className={mobileNavClass}
+              onClick={(event) => interceptPremiumNav(event, item)}
+            >
               {({ isActive }) => (
                 <>
-                  <item.icon className="size-4 shrink-0" aria-hidden />
+                  <span className="relative">
+                    <item.icon className="size-4 shrink-0" aria-hidden />
+                    {locked && (
+                      <Lock
+                        className="absolute -end-1.5 -top-1 size-2.5 text-warning"
+                        aria-hidden
+                      />
+                    )}
+                  </span>
                   <span className="max-w-[4.5rem] truncate">
                     {t(`navigation.${item.key}`)}
                   </span>
-                  {isActive && (
+                  {isActive && !locked && (
                     <span
                       aria-hidden="true"
                       className="absolute inset-x-2.5 -bottom-0.5 h-0.5 rounded-full bg-primary"
@@ -105,7 +134,8 @@ function AppLayout({ children }: AppLayoutProps) {
                 </>
               )}
             </NavLink>
-          ))}
+            );
+          })}
           {isAdmin && (
             <NavLink to="/admin" className={mobileNavClass}>
               {({ isActive }) => (
@@ -132,22 +162,38 @@ function AppLayout({ children }: AppLayoutProps) {
           <BrandMark />
 
           <nav className="mt-8 flex flex-col gap-1" aria-label={t("common.mainNav")}>
-            {navItems.map((item) => (
-              <NavLink key={item.key} to={item.to} className={linkClass}>
+            {navItems.map((item) => {
+              const locked = "premium" in item && item.premium && !isPremium;
+              return (
+              <NavLink
+                key={item.key}
+                to={item.to}
+                className={linkClass}
+                onClick={(event) => interceptPremiumNav(event, item)}
+              >
                 {({ isActive }) => (
                   <>
-                    {isActive && (
+                    {isActive && !locked && (
                       <span
                         aria-hidden="true"
                         className="absolute inset-y-2 start-0 w-1 rounded-full bg-primary"
                       />
                     )}
                     <item.icon className="size-4 shrink-0" aria-hidden />
-                    {t(`navigation.${item.key}`)}
+                    <span className="min-w-0 flex-1 truncate">
+                      {t(`navigation.${item.key}`)}
+                    </span>
+                    {locked && (
+                      <Lock
+                        className="size-3.5 shrink-0 text-warning"
+                        aria-label={t("premium.lockAria")}
+                      />
+                    )}
                   </>
                 )}
               </NavLink>
-            ))}
+              );
+            })}
             {isAdmin && (
               <NavLink to="/admin" className={linkClass}>
                 {({ isActive }) => (
@@ -174,8 +220,14 @@ function AppLayout({ children }: AppLayoutProps) {
             >
               <Avatar name={user.fullName} src={user.avatarUrl} size="sm" />
               <span className="min-w-0 text-start">
-                <span className="block truncate text-sm font-semibold text-fg">
-                  {userName}
+                <span className="flex min-w-0 items-center gap-2">
+                  <span className="block truncate text-sm font-semibold text-fg">
+                    {userName}
+                  </span>
+                  <PlanBadge
+                    plan={isPremium ? "PREMIUM" : "FREE"}
+                    className="shrink-0"
+                  />
                 </span>
                 {user.email && (
                   <span className="block truncate text-xs text-fg-subtle">

@@ -1,3 +1,5 @@
+export type UserPlan = "FREE" | "PREMIUM";
+
 export type TransactionType = "INCOME" | "EXPENSE";
 
 export type RecurrenceFrequency = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
@@ -146,6 +148,7 @@ export type Profile = {
   email: string;
   avatarUrl: string | null;
   createdAt: string;
+  plan?: UserPlan;
   isAdmin?: boolean;
 };
 
@@ -171,4 +174,5 @@ export type ApiErrorBody = {
   success: false;
   message?: string;
   errors?: string[];
+  code?: string;
 };

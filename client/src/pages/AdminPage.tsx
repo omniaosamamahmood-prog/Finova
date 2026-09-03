@@ -20,9 +20,11 @@ import {
   useAdminFeedback,
   useAdminOverview,
   useAdminUsers,
+  useUpdateAdminUserPlan,
 } from "../hooks/useAdmin";
 import { FEEDBACK_TYPES } from "../types/feedback";
 import { formatDate } from "../utils/format";
+import PlanBadge from "../components/premium/PlanBadge";
 import type { AdminFeedbackItem, AdminUser } from "../types/admin";
 
 type AdminTab = "dashboard" | "users" | "feedback";
@@ -60,6 +62,7 @@ function AdminAccessDenied() {
 
 function AdminUsersTable({ users }: { users: AdminUser[] }) {
   const { t, i18n } = useTranslation();
+  const updatePlan = useUpdateAdminUserPlan();
 
   if (users.length === 0) {
     return (
@@ -81,6 +84,7 @@ function AdminUsersTable({ users }: { users: AdminUser[] }) {
               <th className="px-4 py-3 font-semibold">{t("admin.users.email")}</th>
               <th className="px-4 py-3 font-semibold">{t("admin.users.verified")}</th>
               <th className="px-4 py-3 font-semibold">{t("admin.users.google")}</th>
+              <th className="px-4 py-3 font-semibold">{t("admin.users.plan")}</th>
               <th className="px-4 py-3 font-semibold">{t("admin.users.joined")}</th>
             </tr>
           </thead>
@@ -94,6 +98,26 @@ function AdminUsersTable({ users }: { users: AdminUser[] }) {
                 </td>
                 <td className="px-4 py-3 text-fg-muted">
                   {user.hasGoogle ? t("admin.users.yes") : t("admin.users.no")}
+                </td>
+                <td className="px-4 py-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <PlanBadge plan={user.plan ?? "FREE"} />
+                    <button
+                      type="button"
+                      disabled={updatePlan.isPending}
+                      onClick={() =>
+                        updatePlan.mutate({
+                          id: user.id,
+                          plan: user.plan === "PREMIUM" ? "FREE" : "PREMIUM",
+                        })
+                      }
+                      className="text-xs font-medium text-primary hover:underline disabled:opacity-50"
+                    >
+                      {user.plan === "PREMIUM"
+                        ? t("admin.users.setFree")
+                        : t("admin.users.setPremium")}
+                    </button>
+                  </div>
                 </td>
                 <td className="px-4 py-3 text-fg-muted">
                   {formatDate(user.createdAt, i18n.language)}

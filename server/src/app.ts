@@ -15,10 +15,18 @@ import aiRoutes from "./routes/ai.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import feedbackRoutes from "./routes/feedback.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
+import planRoutes from "./routes/plan.routes.js";
+import { handleStripeWebhook } from "./controllers/plan.controller.js";
 import { ensureAvatarsDir } from "./utils/avatarStorage.js";
 
 const app = express();
 ensureAvatarsDir();
+
+app.post(
+  "/plan/webhook",
+  express.raw({ type: "application/json" }),
+  handleStripeWebhook
+);
 
 // Middlewares
 app.use(cors());
@@ -41,4 +49,5 @@ app.use("/ai", aiRoutes);
 app.use("/profile", profileRoutes);
 app.use("/feedback", feedbackRoutes);
 app.use("/admin", adminRoutes);
+app.use("/plan", planRoutes);
 export default app;

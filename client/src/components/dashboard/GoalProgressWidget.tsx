@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Target } from "lucide-react";
 import { useGoals } from "../../hooks/useGoals";
+import { usePlan } from "../../contexts/PlanContext";
+import PremiumLockedCard from "../premium/PremiumLockedCard";
 import {
   getGoalBarWidth,
   getGoalProgressTone,
@@ -10,7 +12,19 @@ import WidgetEmptyState from "./WidgetEmptyState";
 
 function GoalProgressWidget() {
   const { t } = useTranslation();
+  const { isPremium, openUpgradeModal } = usePlan();
   const { data: goals = [], isLoading, isError } = useGoals();
+
+  if (!isPremium) {
+    return (
+      <PremiumLockedCard
+        heading={t("dashboard.goalProgress")}
+        headingIcon={Target}
+        description={t("premium.widget.goalsDescription")}
+        onUnlock={() => openUpgradeModal("goals")}
+      />
+    );
+  }
 
   const topGoals = [...goals]
     .sort((a, b) => b.progress - a.progress)

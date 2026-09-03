@@ -486,6 +486,49 @@
       "passwordUpdated": "Password updated successfully"
     }
   },
+  "premium": {
+    "badge": "Premium",
+    "free": "Free",
+    "lockAria": "Premium feature",
+    "upgradeTitle": "Upgrade to Premium",
+    "upgradeSubtitle": "Unlock savings goals and recurring transactions to plan ahead with Finova.",
+    "cta": "Upgrade to Premium",
+    "later": "Not now",
+    "features": {
+      "goals": {
+        "title": "Savings goals",
+        "description": "Set targets, track progress, and stay motivated until you reach them."
+      },
+      "recurring": {
+        "title": "Recurring transactions",
+        "description": "Automate income and bills so nothing slips through the cracks."
+      }
+    },
+    "page": {
+      "goalsTitle": "Goals is a Premium feature",
+      "recurringTitle": "Recurring transactions is a Premium feature"
+    },
+    "widget": {
+      "goalsDescription": "Track savings goals and watch your progress in one place.",
+      "recurringDescription": "See upcoming bills and income without adding them by hand."
+    },
+    "settings": {
+      "title": "Plan",
+      "subtitle": "Your current Finova plan.",
+      "current": "Current plan",
+      "freeDescription": "You're on the Free plan. Upgrade to unlock Goals and Recurring Transactions.",
+      "premiumDescription": "You have full access to Goals and Recurring Transactions.",
+      "upgrade": "Upgrade to Premium"
+    },
+    "toasts": {
+      "upgraded": "You're now on Premium."
+    },
+    "errors": {
+      "required": "This feature requires Premium",
+      "checkoutFailed": "Could not start checkout. Please try again.",
+      "notConfigured": "Payments are not available right now. Please try again later."
+    }
+  },
   "errors": {
     "network": "Network error. Please check your connection.",
     "unauthorized": "Your session has expired. Please log in again.",
@@ -628,6 +671,9 @@
       "email": "Email",
       "verified": "Verified",
       "google": "Google",
+      "plan": "Plan",
+      "setPremium": "Set Premium",
+      "setFree": "Set Free",
       "joined": "Joined",
       "yes": "Yes",
       "no": "No"

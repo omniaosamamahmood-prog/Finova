@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { isUserPremium } from "../utils/plan.js";
 function roundMoney(value) {
     return Math.round(value * 100) / 100;
 }
@@ -37,6 +38,7 @@ export async function getFinancialInsights(req, res) {
             gte: startDate,
             lt: endDate,
         };
+        const premium = await isUserPremium(userId);
         const [monthTransactions, monthExpenseGroups, allExpenseGroups, budgets, goals, recurringExpensesDue,] = await Promise.all([
             prisma.transaction.findMany({
                 where: {
@@ -73,20 +75,24 @@ export async function getFinancialInsights(req, res) {
                 where: { userId },
                 include: { category: true },
             }),
-            prisma.goal.findMany({
-                where: { userId },
-            }),
-            prisma.recurringTransaction.findMany({
-                where: {
-                    userId,
-                    isActive: true,
-                    type: "EXPENSE",
-                    nextRunAt: monthFilter,
-                },
-                select: {
-                    amount: true,
-                },
-            }),
+            premium
+                ? prisma.goal.findMany({
+                    where: { userId },
+                })
+                : Promise.resolve([]),
+            premium
+                ? prisma.recurringTransaction.findMany({
+                    where: {
+                        userId,
+                        isActive: true,
+                        type: "EXPENSE",
+                        nextRunAt: monthFilter,
+                    },
+                    select: {
+                        amount: true,
+                    },
+                })
+                : Promise.resolve([]),
         ]);
         const insights = [];
         if (monthTransactions.length === 0) {

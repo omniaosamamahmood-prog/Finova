@@ -8,6 +8,7 @@ const userSelect = {
     email: true,
     avatarUrl: true,
     googleId: true,
+    plan: true,
     createdAt: true,
     updatedAt: true,
 };

@@ -3,13 +3,21 @@ import prisma from "../config/prisma.js";
 import { comparePassword, hashPassword } from "../utils/hash.js";
 import { deleteAvatarFile, toAvatarUrl } from "../utils/avatarStorage.js";
 import { changePasswordSchema, updateProfileSchema, } from "../validations/profile.validation.js";
+import { isAdminEmail } from "../utils/admin.js";
 const profileSelect = {
     id: true,
     fullName: true,
     email: true,
     avatarUrl: true,
+    plan: true,
     createdAt: true,
 };
+function withAdminFlag(user) {
+    return {
+        ...user,
+        isAdmin: isAdminEmail(user.email),
+    };
+}
 function unauthorized(res) {
     return res.status(401).json({
         success: false,
@@ -52,7 +60,7 @@ export async function getProfile(req, res) {
         }
         return res.status(200).json({
             success: true,
-            data: user,
+            data: withAdminFlag(user),
         });
     }
     catch (error) {
@@ -108,7 +116,7 @@ export async function updateProfile(req, res) {
         }
         return res.status(200).json({
             success: true,
-            data: user,
+            data: withAdminFlag(user),
         });
     }
     catch (error) {

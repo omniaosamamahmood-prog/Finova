@@ -1,3 +1,4 @@
+import type { UserPlan } from "./api";
 import type { FeedbackType } from "./feedback";
 
 export type AdminOverview = {
@@ -16,6 +17,7 @@ export type AdminUser = {
   emailVerified: boolean;
   avatarUrl: string | null;
   hasGoogle: boolean;
+  plan: UserPlan;
   createdAt: string;
 };
 

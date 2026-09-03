@@ -20,6 +20,8 @@ import {
 import type { Goal } from "../types/api";
 import type { GoalFormData } from "../validations/goal.validation";
 import { getErrorMessage } from "../utils/errorMessage";
+import { usePlan } from "../contexts/PlanContext";
+import UpgradeToPremiumPanel from "../components/premium/UpgradeToPremiumPanel";
 
 function toGoalPayload(data: GoalFormData) {
   return {
@@ -33,6 +35,7 @@ function toGoalPayload(data: GoalFormData) {
 function GoalsPage() {
   const { t } = useTranslation();
   const { showToast } = useToast();
+  const { isPremium, isPlanReady, upgradeToPremium, isUpgrading } = usePlan();
 
   const {
     data: goals = [],
@@ -102,6 +105,7 @@ function GoalsPage() {
         title={t("navigation.goals")}
         subtitle={t("goals.subtitle")}
         action={
+          isPremium ? (
           <Button
             type="button"
             className="w-full sm:w-auto sm:px-5"
@@ -110,9 +114,23 @@ function GoalsPage() {
             <Plus className="size-4" aria-hidden />
             {t("goals.add")}
           </Button>
+          ) : undefined
         }
       />
 
+      {!isPlanReady ? (
+        <section className="mt-6">
+          <GoalSkeleton />
+        </section>
+      ) : !isPremium ? (
+        <section className="ui-card mt-6 p-5 sm:p-8">
+          <UpgradeToPremiumPanel
+            feature="goals"
+            isUpgrading={isUpgrading}
+            onUpgrade={() => void upgradeToPremium()}
+          />
+        </section>
+      ) : (
       <section className="mt-6">
         {isLoading && <GoalSkeleton />}
 
@@ -151,6 +169,7 @@ function GoalsPage() {
           </div>
         )}
       </section>
+      )}
 
       <GoalModal
         open={modalOpen}

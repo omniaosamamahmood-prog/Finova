@@ -23,6 +23,8 @@ import {
 import type { RecurringTransaction } from "../types/api";
 import type { RecurringTransactionFormData } from "../validations/recurringTransaction.validation";
 import { getErrorMessage } from "../utils/errorMessage";
+import { usePlan } from "../contexts/PlanContext";
+import UpgradeToPremiumPanel from "../components/premium/UpgradeToPremiumPanel";
 
 type StatusFilter = "ALL" | "ACTIVE" | "PAUSED";
 
@@ -41,6 +43,7 @@ function toPayload(data: RecurringTransactionFormData) {
 function RecurringTransactionsPage() {
   const { t } = useTranslation();
   const { showToast } = useToast();
+  const { isPremium, isPlanReady, upgradeToPremium, isUpgrading } = usePlan();
 
   const {
     data: items = [],
@@ -139,6 +142,7 @@ function RecurringTransactionsPage() {
         title={t("navigation.recurring")}
         subtitle={t("recurring.subtitle")}
         action={
+          isPremium ? (
           <Button
             type="button"
             className="w-full sm:w-auto sm:px-5"
@@ -147,9 +151,24 @@ function RecurringTransactionsPage() {
             <Plus className="size-4" aria-hidden />
             {t("recurring.add")}
           </Button>
+          ) : undefined
         }
       />
 
+      {!isPlanReady ? (
+        <section className="mt-6">
+          <RecurringTransactionSkeleton />
+        </section>
+      ) : !isPremium ? (
+        <section className="ui-card mt-6 p-5 sm:p-8">
+          <UpgradeToPremiumPanel
+            feature="recurring"
+            isUpgrading={isUpgrading}
+            onUpgrade={() => void upgradeToPremium()}
+          />
+        </section>
+      ) : (
+        <>
       <div className="mt-4 flex flex-wrap gap-2">
         {(["ALL", "ACTIVE", "PAUSED"] as const).map((filter) => (
           <FilterChip
@@ -216,6 +235,8 @@ function RecurringTransactionsPage() {
           </div>
         )}
       </section>
+        </>
+      )}
 
       <RecurringTransactionModal
         open={modalOpen}

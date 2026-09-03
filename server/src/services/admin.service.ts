@@ -56,6 +56,7 @@ export async function listAdminUsers() {
       emailVerified: true,
       avatarUrl: true,
       googleId: true,
+      plan: true,
       createdAt: true,
     },
     orderBy: { createdAt: "desc" },

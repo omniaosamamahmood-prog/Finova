@@ -1,6 +1,7 @@
 import type { Response } from "express";
 import prisma from "../config/prisma.js";
 import type { AuthRequest } from "../middlewares/auth.middleware.js";
+import { isUserPremium } from "../utils/plan.js";
 
 type InsightType = "success" | "warning" | "danger" | "info";
 
@@ -65,6 +66,8 @@ export async function getFinancialInsights(
       lt: endDate,
     };
 
+    const premium = await isUserPremium(userId);
+
     const [
       monthTransactions,
       monthExpenseGroups,
@@ -108,20 +111,24 @@ export async function getFinancialInsights(
         where: { userId },
         include: { category: true },
       }),
-      prisma.goal.findMany({
-        where: { userId },
-      }),
-      prisma.recurringTransaction.findMany({
-        where: {
-          userId,
-          isActive: true,
-          type: "EXPENSE",
-          nextRunAt: monthFilter,
-        },
-        select: {
-          amount: true,
-        },
-      }),
+      premium
+        ? prisma.goal.findMany({
+            where: { userId },
+          })
+        : Promise.resolve([]),
+      premium
+        ? prisma.recurringTransaction.findMany({
+            where: {
+              userId,
+              isActive: true,
+              type: "EXPENSE",
+              nextRunAt: monthFilter,
+            },
+            select: {
+              amount: true,
+            },
+          })
+        : Promise.resolve([]),
     ]);
 
     const insights: Insight[] = [];

@@ -1,11 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "../lib/queryKeys";
 import { useProfile } from "./useProfile";
 import {
   fetchAdminFeedback,
   fetchAdminOverview,
   fetchAdminUsers,
+  updateAdminUserPlan,
 } from "../services/admin.service";
+import type { UserPlan } from "../types/api";
 
 export function useIsAdmin() {
   const { data: profile, isSuccess } = useProfile();
@@ -36,5 +38,20 @@ export function useAdminFeedback(enabled: boolean) {
     queryFn: fetchAdminFeedback,
     enabled,
     retry: false,
+  });
+}
+
+export function useUpdateAdminUserPlan() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, plan }: { id: string; plan: UserPlan }) =>
+      updateAdminUserPlan(id, plan),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.adminUsers }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.profile }),
+      ]);
+    },
   });
 }

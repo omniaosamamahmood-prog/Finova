@@ -12,6 +12,7 @@ import type {
   RecurringTransaction,
   RecurringTransactionPayload,
 } from "../types/api";
+import { usePlan } from "../contexts/PlanContext";
 
 function invalidateRecurringQueries(queryClient: ReturnType<typeof useQueryClient>) {
   return Promise.all([
@@ -21,9 +22,11 @@ function invalidateRecurringQueries(queryClient: ReturnType<typeof useQueryClien
 }
 
 export function useRecurringTransactions() {
+  const { isPremium, isPlanReady } = usePlan();
   return useQuery({
     queryKey: queryKeys.recurringTransactions,
     queryFn: fetchRecurringTransactions,
+    enabled: isPlanReady && isPremium,
   });
 }
 

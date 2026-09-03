@@ -12,6 +12,7 @@ import DashboardEmptyCard from "../components/dashboard/DashboardEmptyCard";
 import ErrorBanner from "../components/ui/ErrorBanner";
 import { useGettingStarted } from "../hooks/useGettingStarted";
 import { useProfile } from "../hooks/useProfile";
+import { usePlan } from "../contexts/PlanContext";
 import { formatCurrency } from "../utils/format";
 import { getStoredUser } from "../utils/storedUser";
 
@@ -29,6 +30,7 @@ function DashboardPage() {
     showOnboarding,
   } = useGettingStarted();
   const { data: profile } = useProfile();
+  const { isPremium, openUpgradeModal } = usePlan();
 
   const userName =
     profile?.fullName || getStoredUser().fullName || t("common.appName");
@@ -109,8 +111,15 @@ function DashboardPage() {
               headingIcon={Repeat}
               title={t("dashboard.onboarding.recurringEmptyTitle")}
               description={t("dashboard.onboarding.recurringEmptyDescription")}
-              actionTo="/recurring-transactions"
-              actionLabel={t("dashboard.onboarding.addRecurring")}
+              actionTo={isPremium ? "/recurring-transactions" : undefined}
+              actionLabel={
+                isPremium
+                  ? t("dashboard.onboarding.addRecurring")
+                  : t("premium.cta")
+              }
+              onAction={
+                isPremium ? undefined : () => openUpgradeModal("recurring")
+              }
             />
           </div>
         ) : (

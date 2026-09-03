@@ -5,12 +5,14 @@ import {
   getFeedback,
   getOverview,
   getUsers,
+  updateUserPlan,
 } from "../controllers/admin.controller.js";
 
 const router = Router();
 
 router.get("/overview", authenticate, requireAdmin, getOverview);
 router.get("/users", authenticate, requireAdmin, getUsers);
+router.patch("/users/:id/plan", authenticate, requireAdmin, updateUserPlan);
 router.get("/feedback", authenticate, requireAdmin, getFeedback);
 
 export default router;

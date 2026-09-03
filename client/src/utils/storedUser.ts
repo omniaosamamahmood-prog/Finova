@@ -21,6 +21,7 @@ export function persistStoredUser(profile: Profile) {
       email: profile.email,
       avatarUrl: profile.avatarUrl,
       createdAt: profile.createdAt,
+      plan: profile.plan ?? "FREE",
     })
   );
 }

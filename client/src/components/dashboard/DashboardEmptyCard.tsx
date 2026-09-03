@@ -6,8 +6,9 @@ type DashboardEmptyCardProps = {
   headingIcon: LucideIcon;
   title: string;
   description: string;
-  actionTo: string;
+  actionTo?: string;
   actionLabel: string;
+  onAction?: () => void;
 };
 
 function DashboardEmptyCard({
@@ -17,6 +18,7 @@ function DashboardEmptyCard({
   description,
   actionTo,
   actionLabel,
+  onAction,
 }: DashboardEmptyCardProps) {
   return (
     <section className="ui-card min-w-0 p-5 sm:p-6" aria-label={heading}>
@@ -31,6 +33,7 @@ function DashboardEmptyCard({
         description={description}
         actionTo={actionTo}
         actionLabel={actionLabel}
+        onAction={onAction}
       />
     </section>
   );

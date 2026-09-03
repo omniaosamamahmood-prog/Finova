@@ -9,6 +9,7 @@ const userSelect = {
     email: true,
     avatarUrl: true,
     emailVerified: true,
+    plan: true,
     createdAt: true,
     updatedAt: true,
 };

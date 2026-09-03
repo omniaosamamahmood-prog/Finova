@@ -2,11 +2,25 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Repeat } from "lucide-react";
 import { useRecurringTransactions } from "../../hooks/useRecurringTransactions";
+import { usePlan } from "../../contexts/PlanContext";
+import PremiumLockedCard from "../premium/PremiumLockedCard";
 import { formatCurrency, formatUtcDate } from "../../utils/format";
 
 function UpcomingRecurringWidget() {
   const { t, i18n } = useTranslation();
+  const { isPremium, openUpgradeModal } = usePlan();
   const { data: items = [], isLoading, isError } = useRecurringTransactions();
+
+  if (!isPremium) {
+    return (
+      <PremiumLockedCard
+        heading={t("dashboard.upcomingRecurring")}
+        headingIcon={Repeat}
+        description={t("premium.widget.recurringDescription")}
+        onUnlock={() => openUpgradeModal("recurring")}
+      />
+    );
+  }
 
   const upcoming = [...items]
     .filter((item) => item.isActive)

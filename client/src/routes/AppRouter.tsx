@@ -17,11 +17,13 @@ import RecurringTransactionsPage from "../pages/RecurringTransactionsPage";
 import SettingsPage from "../pages/SettingsPage";
 import AdminPage from "../pages/AdminPage";
 import ProtectedRoute from "./ProtectedRoute";
+import { PlanProvider } from "../contexts/PlanContext";
 
 function AppRouter() {
   return (
     <BrowserRouter>
-      <Routes>
+      <PlanProvider>
+        <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -105,6 +107,7 @@ function AppRouter() {
           }
         />
       </Routes>
+      </PlanProvider>
     </BrowserRouter>
   );
 }

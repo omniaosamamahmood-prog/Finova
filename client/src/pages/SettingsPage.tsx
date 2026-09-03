@@ -6,12 +6,14 @@ import { useToast } from "../components/ui/Toast";
 import ProfileSection from "../components/settings/ProfileSection";
 import SecuritySection from "../components/settings/SecuritySection";
 import PreferencesSection from "../components/settings/PreferencesSection";
+import PlanSection from "../components/settings/PlanSection";
 import SettingsSkeleton from "../components/settings/SettingsSkeleton";
 import {
   useChangePassword,
   useProfile,
   useUpdateProfile,
 } from "../hooks/useProfile";
+import { usePlan } from "../contexts/PlanContext";
 import { getErrorMessage } from "../utils/errorMessage";
 import type { ChangePasswordFormData } from "../validations/profile.validation";
 
@@ -22,6 +24,7 @@ function SettingsPage() {
   const { data: profile, isLoading, isError, error, refetch } = useProfile();
   const updateMutation = useUpdateProfile();
   const passwordMutation = useChangePassword();
+  const { plan, upgradeToPremium, isUpgrading } = usePlan();
 
   const handleProfileSave = async (payload: {
     fullName: string;
@@ -67,6 +70,23 @@ function SettingsPage() {
         )}
 
         {profile && (
+          <>
+          <section className="ui-card min-w-0 p-5 sm:p-6 lg:p-8">
+            <h3 className="text-lg font-semibold text-fg">
+              {t("premium.settings.title")}
+            </h3>
+            <p className="mt-1 text-sm text-fg-muted">
+              {t("premium.settings.subtitle")}
+            </p>
+            <div className="mt-6">
+              <PlanSection
+                plan={plan}
+                isUpgrading={isUpgrading}
+                onUpgrade={() => void upgradeToPremium()}
+              />
+            </div>
+          </section>
+
           <section className="ui-card min-w-0 p-5 sm:p-6 lg:p-8">
             <h3 className="text-lg font-semibold text-fg">
               {t("settings.tabs.profile")}
@@ -80,6 +100,7 @@ function SettingsPage() {
               />
             </div>
           </section>
+          </>
         )}
 
         <div className="grid min-w-0 gap-5 lg:grid-cols-2 lg:items-stretch">

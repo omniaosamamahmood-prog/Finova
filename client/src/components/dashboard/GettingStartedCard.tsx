@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Check, Plus, Sparkles, Target, Wallet } from "lucide-react";
 import Button from "../ui/Button";
+import { usePlan } from "../../contexts/PlanContext";
 
 type GettingStartedCardProps = {
   hasTransactions: boolean;
@@ -16,6 +17,7 @@ function GettingStartedCard({
 }: GettingStartedCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isPremium, openUpgradeModal } = usePlan();
 
   const steps = [
     {
@@ -114,7 +116,9 @@ function GettingStartedCard({
           type="button"
           variant="secondary"
           className="w-full sm:w-auto sm:px-5"
-          onClick={() => navigate("/goals")}
+          onClick={() =>
+            isPremium ? navigate("/goals") : openUpgradeModal("goals")
+          }
         >
           <Target className="size-4" aria-hidden />
           {t("dashboard.onboarding.createGoal")}

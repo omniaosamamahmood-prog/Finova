@@ -1,5 +1,5 @@
 import api from "./api";
-import type { ApiSuccess } from "../types/api";
+import type { ApiSuccess, UserPlan } from "../types/api";
 import type {
   AdminFeedbackItem,
   AdminOverview,
@@ -19,5 +19,15 @@ export async function fetchAdminUsers(): Promise<AdminUser[]> {
 export async function fetchAdminFeedback(): Promise<AdminFeedbackItem[]> {
   const response =
     await api.get<ApiSuccess<AdminFeedbackItem[]>>("/admin/feedback");
+  return response.data.data;
+}
+
+export async function updateAdminUserPlan(
+  userId: string,
+  plan: UserPlan
+): Promise<{ id: string; fullName: string; email: string; plan: UserPlan }> {
+  const response = await api.patch<
+    ApiSuccess<{ id: string; fullName: string; email: string; plan: UserPlan }>
+  >(`/admin/users/${userId}/plan`, { plan });
   return response.data.data;
 }

@@ -9,6 +9,7 @@ const userSelect = {
   email: true,
   avatarUrl: true,
   googleId: true,
+  plan: true,
   createdAt: true,
   updatedAt: true,
 } as const;
@@ -77,6 +78,7 @@ function toAuthResult(user: {
   email: string;
   avatarUrl: string | null;
   googleId: string | null;
+  plan: "FREE" | "PREMIUM";
   createdAt: Date;
   updatedAt: Date;
 }) {

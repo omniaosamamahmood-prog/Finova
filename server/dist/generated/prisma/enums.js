@@ -24,4 +24,8 @@ export const FeedbackType = {
     UI_UX: 'UI_UX',
     PERFORMANCE: 'PERFORMANCE'
 };
+export const Plan = {
+    FREE: 'FREE',
+    PREMIUM: 'PREMIUM'
+};
 //# sourceMappingURL=enums.js.map

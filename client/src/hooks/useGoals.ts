@@ -8,11 +8,14 @@ import {
   updateGoal,
 } from "../services/goal.service";
 import type { Goal, GoalPayload } from "../types/api";
+import { usePlan } from "../contexts/PlanContext";
 
 export function useGoals() {
+  const { isPremium, isPlanReady } = usePlan();
   return useQuery({
     queryKey: queryKeys.goals,
     queryFn: fetchGoals,
+    enabled: isPlanReady && isPremium,
   });
 }
 

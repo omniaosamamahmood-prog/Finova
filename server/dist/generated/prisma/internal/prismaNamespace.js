@@ -95,6 +95,7 @@ export const UserScalarFieldEnum = {
     googleId: 'googleId',
     avatarUrl: 'avatarUrl',
     emailVerified: 'emailVerified',
+    plan: 'plan',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
