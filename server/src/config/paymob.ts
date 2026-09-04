@@ -14,6 +14,7 @@ type PublicKeyKind = "missing" | "test" | "live" | "unexpected";
 export type PaymobConfigDiagnostics = {
   PAYMOB_SECRET_KEY: SecretKeyKind;
   PAYMOB_PUBLIC_KEY: PublicKeyKind;
+  PAYMOB_HMAC_SECRET: "missing" | "present";
   PAYMOB_INTEGRATION_ID: "missing" | "present";
   missingVariables: string[];
 };
@@ -67,6 +68,7 @@ function classifyPublicKey(key: string | undefined): PublicKeyKind {
 export function getPaymobConfigDiagnostics(): PaymobConfigDiagnostics {
   const secretKind = classifySecretKey(readEnv("PAYMOB_SECRET_KEY"));
   const publicKind = classifyPublicKey(readEnv("PAYMOB_PUBLIC_KEY"));
+  const hmacSecret = readEnv("PAYMOB_HMAC_SECRET");
   const integrationId = readEnv("PAYMOB_INTEGRATION_ID");
   const missingVariables: string[] = [];
 
@@ -76,10 +78,14 @@ export function getPaymobConfigDiagnostics(): PaymobConfigDiagnostics {
   if (publicKind === "missing") {
     missingVariables.push("PAYMOB_PUBLIC_KEY");
   }
+  if (!hmacSecret) {
+    missingVariables.push("PAYMOB_HMAC_SECRET");
+  }
 
   return {
     PAYMOB_SECRET_KEY: secretKind,
     PAYMOB_PUBLIC_KEY: publicKind,
+    PAYMOB_HMAC_SECRET: hmacSecret ? "present" : "missing",
     PAYMOB_INTEGRATION_ID: integrationId ? "present" : "present",
     missingVariables,
   };
@@ -107,6 +113,17 @@ export function getPaymobPublicKey(): string {
     ]);
   }
   return publicKey;
+}
+
+export function getPaymobHmacSecret(): string {
+  const hmacSecret = readEnv("PAYMOB_HMAC_SECRET");
+  if (!hmacSecret) {
+    logPaymobConfigDiagnostics("PAYMOB_HMAC_SECRET is missing");
+    throw new PaymobConfigError("Paymob HMAC secret is not configured", [
+      "PAYMOB_HMAC_SECRET",
+    ]);
+  }
+  return hmacSecret;
 }
 
 export function getPaymobIntegrationId(): number {

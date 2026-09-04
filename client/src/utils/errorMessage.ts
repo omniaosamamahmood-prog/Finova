@@ -54,6 +54,10 @@ const SERVER_MESSAGE_KEYS: Record<string, string> = {
   "Stripe is not configured": "premium.errors.notConfigured",
   "Stripe test mode is required": "premium.errors.notConfigured",
   "Failed to create Stripe Checkout session": "premium.errors.checkoutFailed",
+  "Paymob is not configured": "premium.errors.notConfigured",
+  "Paymob public key is not configured": "premium.errors.notConfigured",
+  "Paymob integration ID is invalid": "premium.errors.notConfigured",
+  "Failed to create Paymob Checkout session": "premium.errors.checkoutFailed",
 };
 
 export function getErrorMessage(

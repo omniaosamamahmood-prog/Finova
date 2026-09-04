@@ -1,7 +1,7 @@
 import { StripeConfigError, constructStripeWebhookEvent, getStripeConfigDiagnostics, logStripeConfigDiagnostics, } from "../config/stripe.js";
 import { PaymobConfigError, logPaymobConfigDiagnostics } from "../config/paymob.js";
 import { createPremiumCheckoutSession, fulfillPremiumCheckoutFromSession, } from "../services/plan.service.js";
-import { createPremiumPaymobCheckout } from "../services/paymob.service.js";
+import { createPremiumPaymobCheckout, fulfillPremiumPaymobTransaction, verifyPaymobTransactionHmac, } from "../services/paymob.service.js";
 import { getUserPlan } from "../utils/plan.js";
 function unauthorized(res) {
     return res.status(401).json({
@@ -79,6 +79,59 @@ export async function createPaymobCheckout(req, res) {
     }
     catch (error) {
         return handleError(res, error);
+    }
+}
+export async function handlePaymobWebhook(req, res) {
+    const receivedHmac = typeof req.query.hmac === "string"
+        ? req.query.hmac
+        : typeof req.body?.hmac === "string"
+            ? req.body.hmac
+            : "";
+    const obj = req.body?.obj;
+    if (!obj || typeof obj !== "object") {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid Paymob webhook payload",
+        });
+    }
+    try {
+        if (!verifyPaymobTransactionHmac(obj, receivedHmac)) {
+            console.error("[paymob] webhook rejected: invalid HMAC");
+            return res.status(401).json({
+                success: false,
+                message: "Invalid Paymob HMAC",
+            });
+        }
+    }
+    catch (error) {
+        if (error instanceof PaymobConfigError) {
+            logPaymobConfigDiagnostics(error.message);
+            return res.status(500).json({
+                success: false,
+                message: error.message,
+                missingVariables: error.missingVariables,
+            });
+        }
+        console.error("[paymob] webhook HMAC verification failed");
+        return res.status(401).json({
+            success: false,
+            message: "Invalid Paymob HMAC",
+        });
+    }
+    try {
+        const result = await fulfillPremiumPaymobTransaction(obj);
+        console.info("[paymob] webhook processed", {
+            status: result.status,
+            reason: result.status === "ignored" ? result.reason : undefined,
+        });
+        return res.status(200).json({ received: true, ...result });
+    }
+    catch (error) {
+        console.error("[paymob] webhook handler error");
+        return res.status(500).json({
+            success: false,
+            message: "Webhook handler failed",
+        });
     }
 }
 export async function handleStripeWebhook(req, res) {
