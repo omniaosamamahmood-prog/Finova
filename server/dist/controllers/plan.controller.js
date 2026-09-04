@@ -1,4 +1,4 @@
-import { getStripe, getStripeWebhookSecret } from "../config/stripe.js";
+import { StripeConfigError, constructStripeWebhookEvent, getStripeConfigDiagnostics, logStripeConfigDiagnostics, } from "../config/stripe.js";
 import { createPremiumCheckoutSession, fulfillPremiumCheckoutFromSession, } from "../services/plan.service.js";
 import { getUserPlan } from "../utils/plan.js";
 function unauthorized(res) {
@@ -8,6 +8,9 @@ function unauthorized(res) {
     });
 }
 function handleError(res, error) {
+    if (error instanceof StripeConfigError) {
+        logStripeConfigDiagnostics(error.message);
+    }
     if (error instanceof Error) {
         return res.status(400).json({
             success: false,
@@ -62,13 +65,25 @@ export async function handleStripeWebhook(req, res) {
     if (!signature || Array.isArray(signature)) {
         return res.status(400).send("Missing Stripe signature");
     }
+    if (!Buffer.isBuffer(req.body) && typeof req.body !== "string") {
+        console.error("[stripe] webhook raw body is missing; JSON parsing ran too early");
+        return res.status(400).send("Webhook Error: Invalid payload");
+    }
     let event;
     try {
-        const stripe = getStripe();
-        const webhookSecret = getStripeWebhookSecret();
-        event = stripe.webhooks.constructEvent(req.body, signature, webhookSecret);
+        event = constructStripeWebhookEvent(req.body, signature);
     }
     catch (error) {
+        if (error instanceof StripeConfigError) {
+            const diagnostics = getStripeConfigDiagnostics();
+            logStripeConfigDiagnostics(error.message);
+            return res.status(500).json({
+                success: false,
+                message: error.message,
+                missingVariables: diagnostics.missingVariables,
+                diagnostics,
+            });
+        }
         const message = error instanceof Error
             ? error.message
             : "Webhook signature verification failed";
