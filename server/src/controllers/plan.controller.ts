@@ -84,6 +84,8 @@ export async function createCheckoutSession(req: AuthRequest, res: Response) {
 }
 
 export async function handleStripeWebhook(req: Request, res: Response) {
+  console.info("[stripe webhook] new handler active", getStripeConfigDiagnostics());
+
   const signature = req.headers["stripe-signature"];
 
   if (!signature || Array.isArray(signature)) {

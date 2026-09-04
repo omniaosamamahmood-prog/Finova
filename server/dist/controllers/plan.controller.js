@@ -61,6 +61,7 @@ export async function createCheckoutSession(req, res) {
     }
 }
 export async function handleStripeWebhook(req, res) {
+    console.info("[stripe webhook] new handler active", getStripeConfigDiagnostics());
     const signature = req.headers["stripe-signature"];
     if (!signature || Array.isArray(signature)) {
         return res.status(400).send("Missing Stripe signature");
