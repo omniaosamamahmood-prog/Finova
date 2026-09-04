@@ -1,5 +1,7 @@
 import { StripeConfigError, constructStripeWebhookEvent, getStripeConfigDiagnostics, logStripeConfigDiagnostics, } from "../config/stripe.js";
+import { PaymobConfigError, logPaymobConfigDiagnostics } from "../config/paymob.js";
 import { createPremiumCheckoutSession, fulfillPremiumCheckoutFromSession, } from "../services/plan.service.js";
+import { createPremiumPaymobCheckout } from "../services/paymob.service.js";
 import { getUserPlan } from "../utils/plan.js";
 function unauthorized(res) {
     return res.status(401).json({
@@ -10,6 +12,9 @@ function unauthorized(res) {
 function handleError(res, error) {
     if (error instanceof StripeConfigError) {
         logStripeConfigDiagnostics(error.message);
+    }
+    if (error instanceof PaymobConfigError) {
+        logPaymobConfigDiagnostics(error.message);
     }
     if (error instanceof Error) {
         return res.status(400).json({
@@ -51,6 +56,22 @@ export async function createCheckoutSession(req, res) {
             return unauthorized(res);
         }
         const data = await createPremiumCheckoutSession(userId);
+        return res.status(200).json({
+            success: true,
+            data,
+        });
+    }
+    catch (error) {
+        return handleError(res, error);
+    }
+}
+export async function createPaymobCheckout(req, res) {
+    try {
+        const userId = req.user?.id;
+        if (!userId) {
+            return unauthorized(res);
+        }
+        const data = await createPremiumPaymobCheckout(userId);
         return res.status(200).json({
             success: true,
             data,
